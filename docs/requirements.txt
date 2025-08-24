@@ -1,8 +1,7 @@
-# Dependências básicas da documentação
+aiohttp>=3.7.4,<4
+audioop-lts; python_version>='3.13'
 sphinx>=5.0.0
 sphinx-rtd-theme>=1.2.0
-
-# Extensões úteis (opcional)
 sphinx-autodoc-typehints>=1.19.0
 sphinx-copybutton>=0.5.2
 sphinxcontrib-trio>=1.0
