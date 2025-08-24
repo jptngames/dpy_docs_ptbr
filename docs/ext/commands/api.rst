@@ -1,9 +1,9 @@
 .. currentmodule:: discord
 
-API Reference
+Referência da API
 ===============
 
-The following section outlines the API of discord.py's command extension module.
+A seção a seguir descreve a API do discord, módulo de `ext_commands`.
 
 .. _ext_commands_api_bot:
 
@@ -58,7 +58,7 @@ AutoShardedBot
 .. autoclass:: discord.ext.commands.AutoShardedBot
     :members:
 
-Prefix Helpers
+Funções de Prefixo
 ----------------
 
 .. autofunction:: discord.ext.commands.when_mentioned
@@ -67,43 +67,43 @@ Prefix Helpers
 
 .. _ext_commands_api_events:
 
-Event Reference
------------------
+Referência de Eventos
+----------------------
 
-These events function similar to :ref:`the regular events <discord-api-events>`, except they
-are custom to the command extension module.
-
-.. function:: discord.ext.commands.on_command_error(ctx, error)
-
-    An error handler that is called when an error is raised
-    inside a command either through user input error, check
-    failure, or an error in your own code.
-
-    A default one is provided (:meth:`.Bot.on_command_error`).
-
-    :param ctx: The invocation context.
+Esses eventos funcionam de forma semelhante aos :ref:`eventos normais <discord-api-events>`, exceto que
+    são específicos do módulo de extensão de comandos.
+    
+    .. function:: discord.ext.commands.on_command_error(ctx, error)
+    
+    Um manipulador de erros que é chamado quando ocorre um erro
+    dentro de um comando, seja por erro de entrada do usuário, falha
+    em uma verificação ou um erro no seu próprio código.
+    
+    Um manipulador padrão é fornecido (:meth:`.Bot.on_command_error`).
+    
+    :param ctx: O contexto da invocação.
     :type ctx: :class:`.Context`
-    :param error: The error that was raised.
-    :type error: :class:`.CommandError` derived
-
-.. function:: discord.ext.commands.on_command(ctx)
-
-    An event that is called when a command is found and is about to be invoked.
-
-    This event is called regardless of whether the command itself succeeds via
-    error or completes.
-
-    :param ctx: The invocation context.
+    :param error: O erro que foi levantado.
+    :type error: derivado de :class:`.CommandError`
+    
+    .. function:: discord.ext.commands.on_command(ctx)
+    
+    Um evento que é chamado quando um comando é encontrado e está prestes a ser invocado.
+    
+    Esse evento é chamado independentemente de o comando ter sucesso, falhar
+    por erro ou ser concluído.
+    
+    :param ctx: O contexto da invocação.
     :type ctx: :class:`.Context`
-
-.. function:: discord.ext.commands.on_command_completion(ctx)
-
-    An event that is called when a command has completed its invocation.
-
-    This event is called only if the command succeeded, i.e. all checks have
-    passed and the user input it correctly.
-
-    :param ctx: The invocation context.
+    
+    .. function:: discord.ext.commands.on_command_completion(ctx)
+    
+    Um evento que é chamado quando um comando concluiu sua execução.
+    
+    Esse evento é chamado apenas se o comando foi bem-sucedido, ou seja, todas
+    as verificações passaram e a entrada do usuário estava correta.
+    
+    :param ctx: O contexto da invocação.
     :type ctx: :class:`.Context`
 
 .. _ext_commands_api_command:

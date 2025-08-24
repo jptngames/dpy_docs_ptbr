@@ -4,22 +4,22 @@
 
 .. currentmodule:: discord
 
-Quickstart
+Guia Rápido
 ============
 
-This page gives a brief introduction to the library. It assumes you have the library installed,
-if you don't check the :ref:`installing` portion.
+Esta página dá uma breve introdução à biblioteca. Ela assume que você já tem a biblioteca instalada,
+se não tiver, confira a parte de :ref:`installing`.
 
-A Minimal Bot
----------------
+Um Bot Simples e Minimalista
+-------------------
 
-Let's make a bot that responds to a specific message and walk you through it.
+Vamos criar um bot que responde a uma mensagem específica e te guiar passo a passo.
 
-It looks something like this:
+Ele se parece com isso:
 
 .. code-block:: python3
 
-    # This example requires the 'message_content' intent.
+    # Este exemplo requer a intent 'message_content'.
 
     import discord
 
@@ -30,7 +30,7 @@ It looks something like this:
 
     @client.event
     async def on_ready():
-        print(f'We have logged in as {client.user}')
+        print(f'Conectado como {client.user}')
 
     @client.event
     async def on_message(message):
@@ -38,47 +38,47 @@ It looks something like this:
             return
 
         if message.content.startswith('$hello'):
-            await message.channel.send('Hello!')
+            await message.channel.send('Olá!')
 
-    client.run('your token here')
+    client.run('seu token aqui')
 
-Let's name this file ``example_bot.py``. Make sure not to name it ``discord.py`` as that'll conflict
-with the library.
+Vamos nomear este arquivo como ``example_bot.py``. Tenha certeza de não nomeá-lo como ``discord.py``,
+pois isso entraria em conflito com a biblioteca.
 
-There's a lot going on here, so let's walk you through it step by step.
+Há bastante coisa acontecendo aqui, então vamos explicar passo a passo:
 
-1. The first line just imports the library, if this raises a :exc:`ModuleNotFoundError` or :exc:`ImportError`
-   then head on over to :ref:`installing` section to properly install.
-2. Next, we create an instance of a :class:`Client`. This client is our connection to Discord.
-3. We then use the :meth:`Client.event` decorator to register an event. This library has many events.
-   Since this library is asynchronous, we do things in a "callback" style manner.
+1. A primeira linha apenas importa a biblioteca. Se isso levantar um :exc:`ModuleNotFoundError` ou
+   :exc:`ImportError`, vá até a seção :ref:`installing` para instalar corretamente.
+2. Em seguida, criamos uma instância de :class:`Client`. Este cliente é nossa conexão com o Discord.
+3. Depois usamos o decorador :meth:`Client.event` para registrar um evento. Esta biblioteca possui
+   muitos eventos. Como ela é assíncrona, fazemos as coisas em um estilo de "callback".
 
-   A callback is essentially a function that is called when something happens. In our case,
-   the :func:`on_ready` event is called when the bot has finished logging in and setting things
-   up and the :func:`on_message` event is called when the bot has received a message.
-4. Since the :func:`on_message` event triggers for *every* message received, we have to make
-   sure that we ignore messages from ourselves. We do this by checking if the :attr:`Message.author`
-   is the same as the :attr:`Client.user`.
-5. Afterwards, we check if the :class:`Message.content` starts with ``'$hello'``. If it does,
-   then we send a message in the channel it was used in with ``'Hello!'``. This is a basic way of 
-   handling commands, which can be later automated with the :doc:`./ext/commands/index` framework.
-6. Finally, we run the bot with our login token. If you need help getting your token or creating a bot,
-   look in the :ref:`discord-intro` section.
+   Um callback é basicamente uma função chamada quando algo acontece. No nosso caso,
+   o evento :func:`on_ready` é chamado quando o bot terminou de logar e se configurar,
+   e o evento :func:`on_message` é chamado quando o bot recebe uma mensagem.
+4. Como o evento :func:`on_message` é disparado para *todas* as mensagens recebidas, precisamos
+   garantir que vamos ignorar as mensagens enviadas por nós mesmos. Fazemos isso verificando se
+   o :attr:`Message.author` é o mesmo que o :attr:`Client.user`.
+5. Depois, verificamos se o :class:`Message.content` começa com ``'$hello'``. Se começar,
+   então enviamos uma mensagem no canal em que foi usado com ``'Olá!'``. Essa é uma forma básica de
+   lidar com comandos, que pode ser futuramente automatizada com o framework :doc:`./ext/commands/index`.
+6. Finalmente, executamos o bot com nosso token de login. Se precisar de ajuda para conseguir seu
+   token ou criar um bot, veja a seção :ref:`discord-intro`.
 
+Agora que criamos um bot, precisamos *executar* o bot. Felizmente, isso é simples, já que
+este é apenas um script Python que podemos rodar diretamente.
 
-Now that we've made a bot, we have to *run* the bot. Luckily, this is simple since this is just a
-Python script, we can run it directly.
-
-On Windows:
+No Windows:
 
 .. code-block:: shell
 
     $ py -3 example_bot.py
 
-On other systems:
+No macOS, Linux:
 
 .. code-block:: shell
 
     $ python3 example_bot.py
 
-Now you can try playing around with your basic bot.
+Agora você pode brincar um pouco com seu bot básico.
+Tradução feita por `jptngames <https://github.com/jptngames>`_
