@@ -10,7 +10,18 @@ sys.path.append(os.path.abspath('extensions'))
 # -- Configurações básicas ------------------------------------------------
 project = "discord.py"
 author = "Rapptz"
-release = "1.0"
+
+# Pega a versão automaticamente do __init__.py
+version = ''
+try:
+    with open('../discord/__init__.py', encoding='utf-8') as f:
+        version_match = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(), re.MULTILINE)
+        if version_match:
+            version = version_match.group(1)
+except FileNotFoundError:
+    version = "1.0"
+
+release = version
 
 # -- Extensões do Sphinx --------------------------------------------------
 extensions = [
