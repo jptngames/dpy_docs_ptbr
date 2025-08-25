@@ -1,38 +1,36 @@
+- `Discord API <https://discord.gg/discord-api>`_
 discord.py
 ==========
 
 .. image:: https://discord.com/api/guilds/336642139381301249/embed.png
    :target: https://discord.gg/r3sSKJJ
-   :alt: Discord server invite
+   :alt: Convite para o servidor Discord
 .. image:: https://img.shields.io/pypi/v/discord.py.svg
    :target: https://pypi.python.org/pypi/discord.py
-   :alt: PyPI version info
+   :alt: Informações da versão no PyPI
 .. image:: https://img.shields.io/pypi/pyversions/discord.py.svg
    :target: https://pypi.python.org/pypi/discord.py
-   :alt: PyPI supported Python versions
+   :alt: Versões de Python suportadas pelo PyPI
 
-A modern, easy to use, feature-rich, and async ready API wrapper for Discord written in Python.
+Um wrapper de API moderno, fácil de usar, rico em recursos e pronto para `async` para Discord, escrito em Python.
 
-Key Features
--------------
+Principais Recursos
+-------------------
 
-- Modern Pythonic API using ``async`` and ``await``.
-- Proper rate limit handling.
-- Optimised in both speed and memory.
+- API moderna e Pythonica usando ``async`` e ``await``.
+- Manipulação adequada de limites de taxa (rate limits).
+- Otimizado em velocidade e memória.
 
-Installing
+Instalação
 ----------
 
-**Python 3.8 or higher is required**
+**Python 3.8 ou superior é necessário**
 
-To install the library without full voice support, you can just run the following command:
+Para instalar a biblioteca sem suporte completo a voz, basta executar o seguinte comando:
 
 .. note::
 
-    A `Virtual Environment <https://docs.python.org/3/library/venv.html>`__ is recommended to install
-    the library, especially on Linux where the system Python is externally managed and restricts which
-    packages you can install on it.
-
+    É recomendado utilizar um `Ambiente Virtual <https://docs.python.org/3/library/venv.html>`__ para instalar a biblioteca, especialmente em Linux, onde o Python do sistema é gerenciado externamente e restringe quais pacotes você pode instalar.
 
 .. code:: sh
 
@@ -42,7 +40,7 @@ To install the library without full voice support, you can just run the followin
     # Windows
     py -3 -m pip install -U discord.py
 
-Otherwise to get voice support you should run the following command:
+Caso queira suporte a voz, execute o seguinte comando:
 
 .. code:: sh
 
@@ -52,8 +50,7 @@ Otherwise to get voice support you should run the following command:
     # Windows
     py -3 -m pip install -U discord.py[voice]
 
-
-To install the development version, do the following:
+Para instalar a versão de desenvolvimento, faça o seguinte:
 
 .. code:: sh
 
@@ -61,18 +58,17 @@ To install the development version, do the following:
     $ cd discord.py
     $ python3 -m pip install -U .[voice]
 
-
-Optional Packages
+Pacotes Opcionais
 ~~~~~~~~~~~~~~~~~~
 
-* `PyNaCl <https://pypi.org/project/PyNaCl/>`__ (for voice support)
+* `PyNaCl <https://pypi.org/project/PyNaCl/>`__ (para suporte a voz)
 
-Please note that when installing voice support on Linux, you must install the following packages via your favourite package manager (e.g. ``apt``, ``dnf``, etc) before running the above commands:
+Observe que, ao instalar suporte a voz no Linux, você deve instalar os seguintes pacotes via seu gerenciador de pacotes favorito (ex: ``apt``, ``dnf``, etc) antes de executar os comandos acima:
 
-* libffi-dev (or ``libffi-devel`` on some systems)
-* python-dev (e.g. ``python3.8-dev`` for Python 3.8)
+* libffi-dev (ou ``libffi-devel`` em alguns sistemas)
+* python-dev (ex: ``python3.8-dev`` para Python 3.8)
 
-Quick Example
+Exemplo Rápido
 --------------
 
 .. code:: py
@@ -81,10 +77,10 @@ Quick Example
 
     class MyClient(discord.Client):
         async def on_ready(self):
-            print('Logged on as', self.user)
+            print('Logado como', self.user)
 
         async def on_message(self, message):
-            # don't respond to ourselves
+            # não responder a nós mesmos
             if message.author == self.user:
                 return
 
@@ -96,8 +92,8 @@ Quick Example
     client = MyClient(intents=intents)
     client.run('token')
 
-Bot Example
-~~~~~~~~~~~~~
+Exemplo de Bot
+~~~~~~~~~~~~~~
 
 .. code:: py
 
@@ -114,11 +110,19 @@ Bot Example
 
     bot.run('token')
 
-You can find more examples in the examples directory.
+Mais exemplos podem ser encontrados no diretório examples.
 
 Links
 ------
 
-- `Documentation <https://discordpy.readthedocs.io/en/latest/index.html>`_
-- `Official Discord Server <https://discord.gg/r3sSKJJ>`_
-- `Discord API <https://discord.gg/discord-api>`_
+- `Documentação <https://discordpy.readthedocs.io/en/latest/index.html>`_
+- `Servidor Oficial no Discord <https://discord.gg/r3sSKJJ>`_
+- `API do Discord <https://discord.gg/discord-api>`_
+
+Tradução
+---------
+
+Essa documentação foi traduzida voluntariamente e você também pode contribuir!
+
+- Colabore reportando erros ortográficos ou quaisquer outros problemas nos `issues do GitHub <https://github.com/jptngames/dpy_docs_ptbr/issues/new/choose>`_.
+- Esta tradução tem como objetivo ajudar desenvolvedores brasileiros/portugueses a compreender melhor a documentação do discord.py. Todos os direitos sobre o projeto oficial (lib discord.py) pertencem a Rapptz e seus colaboradores.

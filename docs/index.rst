@@ -1,77 +1,85 @@
 .. discord.py documentation master file, created by
-   sphinx-quickstart on Fri Aug 21 05:43:30 2015.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+sphinx-quickstart on Fri Aug 21 05:43:30 2015.
+You can adapt this file completely to your liking, but it should at least
+contain the root `toctree` directive.
 
-Welcome to discord.py
+Bem-vindo ao discord.py
 ===========================
 
 .. image:: /images/snake.svg
 .. image:: /images/snake_dark.svg
 
-discord.py is a modern, easy to use, feature-rich, and async ready API wrapper
-for Discord.
+discord.py é um wrapper moderno, fácil de usar, rico em recursos e pronto para async
+para a API do Discord.
 
-**Features:**
+**Recursos:**
 
-- Modern Pythonic API using ``async``\/``await`` syntax
-- Sane rate limit handling that prevents 429s
-- Command extension to aid with bot creation
-- Easy to use with an object oriented design
-- Optimised for both speed and memory
+- API moderna e Pythônica usando a sintaxe ``async``\/``await``
+- Tratamento inteligente de limites de taxa que previne erros 429
+- Extensão de comandos para ajudar na criação de bots
+- Fácil de usar com design orientado a objetos
+- Otimizado tanto para velocidade quanto para memória
 
-Getting started
+Primeiros passos
 -----------------
 
-Is this your first time using the library? This is the place to get started!
+É a sua primeira vez usando a biblioteca? Este é o lugar para começar!
 
-- **First steps:** :doc:`intro` | :doc:`quickstart` | :doc:`logging`
-- **Working with Discord:** :doc:`discord` | :doc:`intents`
-- **Examples:** Many examples are available in the :resource:`repository <examples>`.
+- **Primeiros passos:** :doc:`intro` | :doc:`quickstart` | :doc:`logging`
+- **Trabalhando com o Discord:** :doc:`discord` | :doc:`intents`
+- **Exemplos:** Muitos exemplos estão disponíveis no :resource:`repositório <examples>`.
 
-Getting help
---------------
+Ajuda
+------
 
-If you're having trouble with something, these resources might help.
+Se você está tendo problemas com algo, esses recursos podem ajudar.
 
-- Try the :doc:`faq` first, it's got answers to all common questions.
-- Ask us and hang out with us in our :resource:`Discord <discord>` server.
-- If you're looking for something specific, try the :ref:`index <genindex>` or :ref:`searching <search>`.
-- Report bugs in the :resource:`issue tracker <issues>`.
-- Ask in our :resource:`GitHub discussions page <discussions>`.
+- Tente primeiro o :doc:`faq`, ele tem respostas para todas as perguntas comuns.
+- Pergunte para nós e participe no nosso :resource:`Discord <discord>`.
+- Se você procura algo específico, tente o :ref:`índice <genindex>` ou :ref:`pesquisa <search>`.
+- Relate bugs no :resource:`issues do GitHub<issues>`.
+- Pergunte na nossa :resource:`página de discussões do GitHub <discussions>`.
 
-Extensions
+Extensões
 ------------
 
-These extensions help you during development when it comes to common tasks.
+Essas extensões ajudam durante o desenvolvimento em tarefas comuns.
 
 .. toctree::
-  :maxdepth: 1
+:maxdepth: 1
 
-  ext/commands/index.rst
-  ext/tasks/index.rst
+ext/commands/index.rst
+ext/tasks/index.rst
 
-Manuals
+Manuais
 ---------
 
-These pages go into great detail about everything the API can do.
+Essas páginas explicam em grande detalhe tudo o que a API pode fazer.
 
 .. toctree::
-  :maxdepth: 1
+:maxdepth: 1
 
-  api
-  interactions/api
-  discord.ext.commands API Reference <ext/commands/api.rst>
-  discord.ext.tasks API Reference <ext/tasks/index.rst>
+api
+interactions/api
+Referência da API discord.ext.commands <ext/commands/api.rst>
+Referência da API discord.ext.tasks <ext/tasks/index.rst>
 
 Meta
 ------
 
-If you're looking for something related to the project itself, it's here.
+Se você está procurando algo relacionado ao próprio projeto, está aqui.
 
 .. toctree::
-  :maxdepth: 1
+:maxdepth: 1
 
-  whats_new
-  version_guarantees
-  migrating
+whats_new
+version_guarantees
+migrating
+
+Tradução
+---------
+
+Essa documentação foi traduzida voluntariamente e você também pode contribuir!
+
+- Colabore reportando erros ortográficos ou quaisquer outros problemas nos `issues do GitHub <https://github.com/jptngames/dpy_docs_ptbr/issues/new/choose>`_.
+- Esta tradução tem como objetivo ajudar desenvolvedores brasileiros/portugueses a compreender melhor a documentação do discord.py. Todos os direitos sobre o projeto oficial (lib discord.py) pertencem a Rapptz e seus colaboradores.

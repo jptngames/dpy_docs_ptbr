@@ -1,32 +1,32 @@
+
 .. _version_guarantees:
 
-Version Guarantees
-=====================
+Garantia de Versão
+==================
 
-The library follows a `semantic versioning principle <https://semver.org/>`_ which means that the major version is updated every time there is an incompatible API change. However due to the lack of guarantees on the Discord side when it comes to breaking changes along with the fairly dynamic nature of Python it can be hard to discern what can be considered a breaking change and what isn't.
+A biblioteca segue o `princípio de versionamento semântico <https://semver.org/>`_, o que significa que a versão principal é atualizada sempre que há uma mudança incompatível na API. No entanto, devido à falta de garantias por parte do Discord em relação a mudanças que quebrem funcionalidades, juntamente com a natureza dinâmica do Python, pode ser difícil discernir o que pode ser considerado uma mudança incompatível e o que não é.
 
-The first thing to keep in mind is that breaking changes only apply to **publicly documented functions and classes**. If it's not listed in the documentation here then it is not part of the public API and is thus bound to change. This includes attributes that start with an underscore or functions without an underscore that are not documented.
+A primeira coisa a se ter em mente é que mudanças incompatíveis aplicam-se apenas a **funções e classes documentadas publicamente**. Se não estiver listada na documentação aqui, então não faz parte da API pública e, portanto, está sujeita a mudanças. Isso inclui atributos que começam com um underscore ou funções sem underscore que não estão documentadas.
 
 .. note::
 
-    The examples below are non-exhaustive.
+    Os exemplos abaixo não são exaustivos.
 
-Examples of Breaking Changes
-------------------------------
+Exemplos de Mudanças Incompatíveis
+-----------------------------------
 
-- Changing the default parameter value to something else.
-- Renaming a function without an alias to an old function.
-- Adding or removing parameters to an event.
+- Alterar o valor padrão de um parâmetro para outro valor.
+- Renomear uma função sem manter um alias para a função antiga.
+- Adicionar ou remover parâmetros de um evento.
 
-Examples of Non-Breaking Changes
-----------------------------------
+Exemplos de Mudanças Compatíveis
+---------------------------------
 
-- Adding or removing private underscored attributes.
-- Adding an element into the ``__slots__`` of a data class.
-- Changing the behaviour of a function to fix a bug.
-- Changes in the typing behaviour of the library
-- Changes in the calling convention of functions that are primarily meant as callbacks
-- Changes in the documentation.
-- Modifying the internal HTTP handling.
-- Upgrading the dependencies to a new version, major or otherwise.
-
+- Adicionar ou remover atributos privados iniciados com underscore.
+- Adicionar um elemento ao ``__slots__`` de uma data class.
+- Alterar o comportamento de uma função para corrigir um bug.
+- Mudanças no comportamento de tipagem da biblioteca.
+- Mudanças na convenção de chamada de funções que são principalmente callbacks.
+- Alterações na documentação.
+- Modificação do tratamento interno de HTTP.
+- Atualização das dependências para uma nova versão, principal ou não.

@@ -1,172 +1,176 @@
-:orphan:
+Example code can be found in the `examples folder <https://github.com/Rapptz/discord.py/tree/master/examples>`_
+in the repository.:orphan:
 
 .. currentmodule:: discord
 .. _faq:
 
-Frequently Asked Questions
+Perguntas Frequentes
 ===========================
 
-This is a list of Frequently Asked Questions regarding using ``discord.py`` and its extension modules. Feel free to suggest a
-new question or submit one via pull requests.
+Esta é uma lista de Perguntas Frequentes sobre o uso do ``discord.py`` e seus módulos de extensão. Sinta-se à vontade para sugerir uma
+nova pergunta ou enviar uma via pull request.
 
-.. contents:: Questions
+.. contents:: Perguntas
     :local:
 
-Coroutines
+Corrotinas
 ------------
 
-Questions regarding coroutines and asyncio belong here.
+Perguntas relacionadas a corrotinas e asyncio pertencem a esta seção.
 
-What is a coroutine?
+O que é uma corrotina?
 ~~~~~~~~~~~~~~~~~~~~~~
 
-A |coroutine_link|_ is a function that must be invoked with ``await`` or ``yield from``. When Python encounters an ``await`` it stops
-the function's execution at that point and works on other things until it comes back to that point and finishes off its work.
-This allows for your program to be doing multiple things at the same time without using threads or complicated
-multiprocessing.
+Uma |coroutine_link|_ é uma função que deve ser chamada com ``await`` ou ``yield from``. Quando o Python encontra um ``await``, ele
+interrompe a execução da função naquele ponto e trabalha em outras tarefas até voltar e finalizar o trabalho. 
+Isso permite que seu programa execute múltiplas tarefas ao mesmo tempo sem usar threads ou multiprocessing complicado.
 
-**If you forget to await a coroutine then the coroutine will not run. Never forget to await a coroutine.**
+**Se você esquecer de usar await em uma corrotina, ela não será executada. Nunca se esqueça de await em uma corrotina.**
 
-Where can I use ``await``\?
+Onde posso usar ``await``\?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You can only use ``await`` inside ``async def`` functions and nowhere else.
+Você só pode usar ``await`` dentro de funções ``async def`` e em nenhum outro lugar.
 
-What does "blocking" mean?
+O que significa "bloqueio"?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In asynchronous programming a blocking call is essentially all the parts of the function that are not ``await``. Do not
-despair however, because not all forms of blocking are bad! Using blocking calls is inevitable, but you must work to make
-sure that you don't excessively block functions. Remember, if you block for too long then your bot will freeze since it has
-not stopped the function's execution at that point to do other things.
+Em programação assíncrona, uma chamada bloqueante é basicamente todas as partes da função que não são ``await``. 
+Não se preocupe, pois nem todas as formas de bloqueio são ruins! Usar chamadas bloqueantes é inevitável, mas você deve garantir 
+que não bloqueie funções excessivamente. Lembre-se, se você bloquear por muito tempo, seu bot irá travar, pois a execução 
+da função não parou naquele ponto para fazer outras tarefas.
 
-If logging is enabled, this library will attempt to warn you that blocking is occurring with the message:
+Se o logging estiver habilitado, esta biblioteca tentará avisar quando houver bloqueio com a mensagem:
 ``Heartbeat blocked for more than N seconds.``
-See :ref:`logging_setup` for details on enabling logging.
+Veja :ref:`logging_setup` para detalhes sobre como habilitar logging.
 
-A common source of blocking for too long is something like :func:`time.sleep`. Don't do that. Use :func:`asyncio.sleep`
-instead. Similar to this example: ::
+Uma fonte comum de bloqueio excessivo é algo como :func:`time.sleep`. Não faça isso. Use :func:`asyncio.sleep` 
+em vez disso. Similar ao exemplo: ::
 
-    # bad
+    # ruim
     time.sleep(10)
 
-    # good
+    # bom
     await asyncio.sleep(10)
 
-Another common source of blocking for too long is using HTTP requests with the famous module :doc:`req:index`.
-While :doc:`req:index` is an amazing module for non-asynchronous programming, it is not a good choice for
-:mod:`asyncio` because certain requests can block the event loop too long. Instead, use the :doc:`aiohttp <aio:index>` library which
-is installed on the side with this library.
+Outra fonte comum de bloqueio excessivo é usar requisições HTTP com o famoso módulo :doc:`req:index`.
+Enquanto :doc:`req:index` é um módulo incrível para programação não assíncrona, ele não é uma boa escolha para 
+:mod:`asyncio` porque certas requisições podem bloquear o event loop por muito tempo. Em vez disso, use a biblioteca :doc:`aiohttp <aio:index>`, 
+que já vem instalada junto com esta biblioteca.
 
-Consider the following example: ::
+Considere o seguinte exemplo: ::
 
-    # bad
+    # ruim
     r = requests.get('http://aws.random.cat/meow')
     if r.status_code == 200:
         js = r.json()
         await channel.send(js['file'])
 
-    # good
+    # bom
     async with aiohttp.ClientSession() as session:
         async with session.get('http://aws.random.cat/meow') as r:
             if r.status == 200:
                 js = await r.json()
                 await channel.send(js['file'])
 
-General
+Geral
 ---------
 
-General questions regarding library usage belong here.
+Perguntas gerais sobre o uso da biblioteca pertencem a esta seção.
 
-Where can I find usage examples?
+Onde posso encontrar exemplos de uso?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Example code can be found in the `examples folder <https://github.com/Rapptz/discord.py/tree/master/examples>`_
-in the repository.
+O código de exemplo pode ser encontrado na `pasta de exemplos <https://github.com/Rapptz/discord.py/tree/master/examples>`_ 
+no repositório.
 
-How do I set the "Playing" status?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            data = io.BytesIO(await resp.read())
+            await channel.send(file=discord.File(data, 'cool_image.png'))Como faço para definir o status "Jogando"?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ``activity`` keyword argument may be passed in the :class:`Client` constructor or :meth:`Client.change_presence`, given an :class:`Activity` object.
+O argumento de palavra-chave ``activity`` pode ser passado no construtor da :class:`Client` ou em :meth:`Client.change_presence`, 
+dado um objeto :class:`Activity`.
 
-The constructor may be used for static activities, while :meth:`Client.change_presence` may be used to update the activity at runtime.
+O construtor pode ser usado para atividades estáticas, enquanto :meth:`Client.change_presence` pode ser usado para atualizar 
+a atividade em tempo de execução.
 
 .. warning::
 
-    It is highly discouraged to use :meth:`Client.change_presence` or API calls in :func:`on_ready` as this event may be called many times while running, not just once.
+    É altamente desaconselhado usar :meth:`Client.change_presence` ou chamadas de API em :func:`on_ready`, 
+    pois este evento pode ser chamado várias vezes durante a execução, não apenas uma vez.
 
-    There is a high chance of disconnecting if presences are changed right after connecting.
+    Há uma grande chance de desconexão se as presenças forem alteradas logo após conectar.
 
-The status type (playing, listening, streaming, watching) can be set using the :class:`ActivityType` enum.
-For memory optimisation purposes, some activities are offered in slimmed-down versions:
+O tipo de status (jogando, ouvindo, transmitindo, assistindo) pode ser definido usando o enum :class:`ActivityType`.
+Para otimização de memória, algumas atividades são oferecidas em versões simplificadas:
 
 - :class:`Game`
 - :class:`Streaming`
 
-Putting both of these pieces of info together, you get the following: ::
+Juntando essas informações, você teria o seguinte: ::
 
-    client = discord.Client(activity=discord.Game(name='my game'))
+    client = discord.Client(activity=discord.Game(name='meu jogo'))
 
-    # or, for watching:
-    activity = discord.Activity(name='my activity', type=discord.ActivityType.watching)
+    # ou, para assistir:
+    activity = discord.Activity(name='minha atividade', type=discord.ActivityType.watching)
     client = discord.Client(activity=activity)
 
-How do I send a message to a specific channel?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Como envio uma mensagem para um canal específico?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You must fetch the channel directly and then call the appropriate method. Example: ::
+Você deve buscar o canal diretamente e então chamar o método apropriado. Exemplo: ::
 
     channel = client.get_channel(12324234183172)
-    await channel.send('hello')
+    await channel.send('olá')
 
-How do I send a DM?
-~~~~~~~~~~~~~~~~~~~
+Como envio uma DM?
+~~~~~~~~~~~~~~~~~~
 
-Get the :class:`User` or :class:`Member` object and call :meth:`abc.Messageable.send`. For example: ::
+Obtenha o objeto :class:`User` ou :class:`Member` e chame :meth:`abc.Messageable.send`. Por exemplo: ::
 
     user = client.get_user(381870129706958858)
     await user.send('👀')
 
-If you are responding to an event, such as :func:`on_message`, you already have the :class:`User` object via :attr:`Message.author`: ::
+Se você está respondendo a um evento, como :func:`on_message`, você já tem o objeto :class:`User` via :attr:`Message.author`: ::
 
     await message.author.send('👋')
 
-How do I get the ID of a sent message?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Como obtenho o ID de uma mensagem enviada?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-:meth:`abc.Messageable.send` returns the :class:`Message` that was sent.
-The ID of a message can be accessed via :attr:`Message.id`: ::
+:meth:`abc.Messageable.send` retorna a :class:`Message` que foi enviada.
+O ID de uma mensagem pode ser acessado via :attr:`Message.id`: ::
 
     message = await channel.send('hmm…')
     message_id = message.id
 
-How do I upload an image?
-~~~~~~~~~~~~~~~~~~~~~~~~~
+Como faço upload de uma imagem?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To upload something to Discord you have to use the :class:`File` object.
+Para enviar algo para o Discord, você deve usar o objeto :class:`File`.
 
-A :class:`File` accepts two parameters, the file-like object (or file path) and the filename
-to pass to Discord when uploading.
+Um :class:`File` aceita dois parâmetros, o objeto tipo arquivo (ou caminho do arquivo) e o nome do arquivo
+para enviar ao Discord durante o upload.
 
-If you want to upload an image it's as simple as: ::
+Se você quiser enviar uma imagem é tão simples quanto: ::
 
-    await channel.send(file=discord.File('my_file.png'))
+    await channel.send(file=discord.File('meu_arquivo.png'))
 
-If you have a file-like object you can do as follows: ::
+Se você tiver um objeto tipo arquivo, pode fazer o seguinte: ::
 
-    with open('my_file.png', 'rb') as fp:
-        await channel.send(file=discord.File(fp, 'new_filename.png'))
+    with open('meu_arquivo.png', 'rb') as fp:
+        await channel.send(file=discord.File(fp, 'novo_nome.png'))
 
-To upload multiple files, you can use the ``files`` keyword argument instead of ``file``\: ::
+Para enviar múltiplos arquivos, você pode usar o argumento de palavra-chave ``files`` ao invés de ``file``\: ::
 
-    my_files = [
-        discord.File('result.zip'),
-        discord.File('teaser_graph.png'),
+    meus_arquivos = [
+        discord.File('resultado.zip'),
+        discord.File('grafico_teaser.png'),
     ]
-    await channel.send(files=my_files)
+    await channel.send(files=meus_arquivos)
 
-If you want to upload something from a URL, you will have to use an HTTP request using :doc:`aiohttp <aio:index>`
-and then pass an :class:`io.BytesIO` instance to :class:`File` like so:
+Se você quiser enviar algo a partir de uma URL, será necessário fazer uma requisição HTTP usando :doc:`aiohttp <aio:index>`
+e então passar uma instância :class:`io.BytesIO` para :class:`File`, assim:
 
 .. code-block:: python3
 
@@ -174,98 +178,98 @@ and then pass an :class:`io.BytesIO` instance to :class:`File` like so:
     import aiohttp
 
     async with aiohttp.ClientSession() as session:
-        async with session.get(my_url) as resp:
+        async with session.get(minha_url) as resp:
             if resp.status != 200:
-                return await channel.send('Could not download file...')
+                return await channel.send('Não foi possível baixar o arquivo...')
             data = io.BytesIO(await resp.read())
-            await channel.send(file=discord.File(data, 'cool_image.png'))
+            await channel.send(file=discord.File(data, 'imagem_legenda.png'))
 
 
-How can I add a reaction to a message?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        # find a channel by name
+        channel = discord.utils.get(guild.text_channels, name='cool-channel')Como faço para adicionar uma reação a uma mensagem?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You use the :meth:`Message.add_reaction` method.
+Você usa o método :meth:`Message.add_reaction`.
 
-If you want to use unicode emoji, you must pass a valid unicode code point in a string. In your code, you can write this in a few different ways:
+Se você quiser usar emojis unicode, deve passar um ponto de código unicode válido em uma string. No seu código, você pode escrever isso de algumas maneiras diferentes:
 
 - ``'👍'``
 - ``'\U0001F44D'``
 - ``'\N{THUMBS UP SIGN}'``
 
-Quick example:
+Exemplo rápido:
 
 .. code-block:: python3
 
     emoji = '\N{THUMBS UP SIGN}'
-    # or '\U0001f44d' or '👍'
+    # ou '\U0001f44d' ou '👍'
     await message.add_reaction(emoji)
 
-In case you want to use emoji that come from a message, you already get their code points in the content without needing
-to do anything special. You **cannot** send ``':thumbsup:'`` style shorthands.
+Caso queira usar emojis que vêm de uma mensagem, você já obtém seus pontos de código no conteúdo sem precisar
+fazer nada de especial. Você **não pode** enviar abreviações do estilo ``':thumbsup:'``.
 
-For custom emoji, you should pass an instance of :class:`Emoji`. You can also pass a ``'<:name:id>'`` string, but if you
-can use said emoji, you should be able to use :meth:`Client.get_emoji` to get an emoji via ID or use :func:`utils.find`/
-:func:`utils.get` on :attr:`Client.emojis` or :attr:`Guild.emojis` collections.
+Para emojis personalizados, você deve passar uma instância de :class:`Emoji`. Você também pode passar uma string ``'<:nome:id>'``, mas se você
+pode usar esse emoji, deve conseguir usar :meth:`Client.get_emoji` para obter um emoji via ID ou usar :func:`utils.find`/
+:func:`utils.get` nas coleções :attr:`Client.emojis` ou :attr:`Guild.emojis`.
 
-The name and ID of a custom emoji can be found with the client by prefixing ``:custom_emoji:`` with a backslash.
-For example, sending the message ``\:python3:`` with the client will result in ``<:python3:232720527448342530>``.
+O nome e o ID de um emoji personalizado podem ser encontrados com o cliente prefixando ``:custom_emoji:`` com uma barra invertida.
+Por exemplo, enviar a mensagem ``\:python3:`` com o cliente resultará em ``<:python3:232720527448342530>``.
 
-Quick example:
+Exemplo rápido:
 
 .. code-block:: python3
 
-
-    # if you have the ID already
+    # se você já tem o ID
     emoji = client.get_emoji(310177266011340803)
     await message.add_reaction(emoji)
 
-    # no ID, do a lookup
+    # sem ID, faça uma busca
     emoji = discord.utils.get(guild.emojis, name='LUL')
     if emoji:
         await message.add_reaction(emoji)
 
-    # if you have the name and ID of a custom emoji:
+    # se você tem o nome e ID de um emoji personalizado:
     emoji = '<:python3:232720527448342530>'
     await message.add_reaction(emoji)
 
-How do I pass a coroutine to the player's "after" function?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Como passar uma coroutine para a função "after" do player?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The library's music player launches on a separate thread, ergo it does not execute inside a coroutine.
-This does not mean that it is not possible to call a coroutine in the ``after`` parameter. To do so you must pass a callable
-that wraps up a couple of aspects.
+O player de música da biblioteca roda em uma thread separada, portanto não executa dentro de uma coroutine.
+Isso não significa que não seja possível chamar uma coroutine no parâmetro ``after``. Para isso, você deve passar uma função chamável
+que encapsule alguns aspectos.
 
-The first gotcha that you must be aware of is that calling a coroutine is not a thread-safe operation. Since we are
-technically in another thread, we must take caution in calling thread-safe operations so things do not bug out. Luckily for
-us, :mod:`asyncio` comes with a :func:`asyncio.run_coroutine_threadsafe` function that allows us to call
-a coroutine from another thread.
+O primeiro cuidado que você deve ter é que chamar uma coroutine não é uma operação segura para threads. Como estamos
+tecnicamente em outra thread, devemos ter cautela ao chamar operações seguras para threads para evitar bugs. Felizmente,
+:mod:`asyncio` possui a função :func:`asyncio.run_coroutine_threadsafe`, que permite chamar
+uma coroutine de outra thread.
 
-However, this function returns a :class:`~concurrent.futures.Future` and to actually call it we have to fetch its result. Putting all of
-this together we can do the following:
+No entanto, essa função retorna um :class:`~concurrent.futures.Future` e, para realmente chamá-la, precisamos obter seu resultado. 
+Juntando tudo isso, podemos fazer o seguinte:
 
 .. code-block:: python3
 
-    def my_after(error):
-        coro = some_channel.send('Song is done!')
+    def minha_after(error):
+        coro = some_channel.send('A música terminou!')
         fut = asyncio.run_coroutine_threadsafe(coro, client.loop)
         try:
             fut.result()
         except:
-            # an error happened sending the message
+            # ocorreu um erro ao enviar a mensagem
             pass
 
-    voice.play(discord.FFmpegPCMAudio(url), after=my_after)
+    voice.play(discord.FFmpegPCMAudio(url), after=minha_after)
 
-How do I run something in the background?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Como executar algo em segundo plano?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-`Check the background_task.py example. <https://github.com/Rapptz/discord.py/blob/master/examples/background_task.py>`_
+`Veja o exemplo background_task.py. <https://github.com/Rapptz/discord.py/blob/master/examples/background_task.py>`_
 
-How do I get a specific model?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Como obter um modelo específico?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-There are multiple ways of doing this. If you have a specific model's ID then you can use
-one of the following functions:
+Existem várias maneiras de fazer isso. Se você tiver o ID de um modelo específico, pode usar
+uma das seguintes funções:
 
 - :meth:`Client.get_channel`
 - :meth:`Client.get_guild`
@@ -275,7 +279,7 @@ one of the following functions:
 - :meth:`Guild.get_channel`
 - :meth:`Guild.get_role`
 
-The following use an HTTP request:
+As seguintes usam uma requisição HTTP:
 
 - :meth:`abc.Messageable.fetch_message`
 - :meth:`Client.fetch_user`
@@ -285,29 +289,29 @@ The following use an HTTP request:
 - :meth:`Guild.fetch_emojis`
 - :meth:`Guild.fetch_member`
 
+Se as funções acima não ajudarem, então o uso de :func:`utils.find` ou :func:`utils.get` pode ser útil para encontrar
+modelos específicos.
 
-If the functions above do not help you, then use of :func:`utils.find` or :func:`utils.get` would serve some use in finding
-specific models.
-
-Quick example:
+Exemplo rápido:
 
 .. code-block:: python3
 
-    # find a guild by name
-    guild = discord.utils.get(client.guilds, name='My Server')
+    # encontrar uma guilda pelo nome
+    guild = discord.utils.get(client.guilds, name='Meu Servidor')
 
-    # make sure to check if it's found
+    # certifique-se de verificar se foi encontrada
     if guild is not None:
-        # find a channel by name
-        channel = discord.utils.get(guild.text_channels, name='cool-channel')
+        # encontrar um canal pelo nome
+        channel = discord.utils.get(guild.text_channels, name='canal-bacana')
 
-How do I make a web request?
+    async def length(ctx):
+        await ctx.send(f'Your message is {len(ctx.message.content)} characters long.')Como faço uma requisição web?
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To make a request, you should use a non-blocking library.
-This library already uses and requires a 3rd party library for making requests, :doc:`aiohttp <aio:index>`.
+Para fazer uma requisição, você deve usar uma biblioteca não bloqueante.
+Esta biblioteca já usa e requer uma biblioteca de terceiros para requisições, :doc:`aiohttp <aio:index>`.
 
-Quick example:
+Exemplo rápido:
 
 .. code-block:: python3
 
@@ -316,22 +320,21 @@ Quick example:
             if r.status == 200:
                 js = await r.json()
 
-See `aiohttp's full documentation <http://aiohttp.readthedocs.io/en/stable/>`_ for more information.
+Veja a `documentação completa do aiohttp <http://aiohttp.readthedocs.io/en/stable/>`_ para mais informações.
 
 .. _local_image:
 
-How do I use a local image file for an embed image?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Como usar um arquivo de imagem local em um embed?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Discord special-cases uploading an image attachment and using it within an embed so that it will not
-display separately, but instead in the embed's thumbnail, image, footer or author icon.
+O Discord trata de forma especial o upload de uma imagem como anexo e seu uso dentro de um embed, de modo que não
+seja exibida separadamente, mas sim na miniatura, imagem, rodapé ou ícone de autor do embed.
 
-To do so, upload the image normally with :meth:`abc.Messageable.send`,
-and set the embed's image URL to ``attachment://image.png``,
-where ``image.png`` is the filename of the image you will send.
+Para isso, faça o upload da imagem normalmente com :meth:`abc.Messageable.send`,
+e defina o URL da imagem do embed como ``attachment://image.png``,
+onde ``image.png`` é o nome do arquivo que você enviará.
 
-
-Quick example:
+Exemplo rápido:
 
 .. code-block:: python3
 
@@ -340,42 +343,41 @@ Quick example:
     embed.set_image(url="attachment://image.png")
     await channel.send(file=file, embed=embed)
 
-Is there an event for audit log entries being created?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Existe um evento para entradas do registro de auditoria sendo criadas?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This event is now available in the library and Discord as of version 2.2. It can be found under :func:`on_audit_log_entry_create`.
+Este evento agora está disponível na biblioteca e no Discord a partir da versão 2.2. Ele pode ser encontrado em :func:`on_audit_log_entry_create`.
 
-
-Commands Extension
+Extensão de Comandos
 -------------------
 
-Questions regarding ``discord.ext.commands`` belong here.
+Perguntas sobre ``discord.ext.commands`` pertencem a esta seção.
 
-Why does ``on_message`` make my commands stop working?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Por que ``on_message`` faz meus comandos pararem de funcionar?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Overriding the default provided ``on_message`` forbids any extra commands from running. To fix this, add a
-``bot.process_commands(message)`` line at the end of your ``on_message``. For example: ::
+Sobrescrever o ``on_message`` padrão impede que quaisquer comandos adicionais sejam executados. Para corrigir isso, adicione uma
+linha ``bot.process_commands(message)`` ao final do seu ``on_message``. Por exemplo: ::
 
     @bot.event
     async def on_message(message):
-        # do some extra stuff here
+        # faça algo extra aqui
 
         await bot.process_commands(message)
 
-Alternatively, you can place your ``on_message`` logic into a **listener**. In this setup, you should not
-manually call ``bot.process_commands()``. This also allows you to do multiple things asynchronously in response
-to a message. Example::
+Alternativamente, você pode colocar sua lógica do ``on_message`` em um **listener**. Nesse caso, não
+chame manualmente ``bot.process_commands()``. Isso também permite executar várias tarefas de forma assíncrona em resposta
+a uma mensagem. Exemplo::
 
     @bot.listen('on_message')
-    async def whatever_you_want_to_call_it(message):
-        # do stuff here
-        # do not process commands here
+    async def qualquer_nome_que_quiser(message):
+        # faça algo aqui
+        # não processe comandos aqui
 
-Why do my arguments require quotes?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Por que meus argumentos precisam de aspas?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In a simple command defined as:
+Em um comando simples definido como:
 
 .. code-block:: python3
 
@@ -383,8 +385,8 @@ In a simple command defined as:
     async def echo(ctx, message: str):
         await ctx.send(message)
 
-Calling it via ``?echo a b c`` will only fetch the first argument and disregard the rest. To fix this you should either call
-it via ``?echo "a b c"`` or change the signature to have "consume rest" behaviour. Example:
+Chamá-lo via ``?echo a b c`` só pegará o primeiro argumento e ignorará os demais. Para corrigir isso, você deve ou chamar
+via ``?echo "a b c"`` ou alterar a assinatura para ter o comportamento "consume rest". Exemplo:
 
 .. code-block:: python3
 
@@ -392,133 +394,130 @@ it via ``?echo "a b c"`` or change the signature to have "consume rest" behaviou
     async def echo(ctx, *, message: str):
         await ctx.send(message)
 
-This will allow you to use ``?echo a b c`` without needing the quotes.
+Isso permitirá usar ``?echo a b c`` sem precisar das aspas.
 
-How do I get the original ``message``\?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Como obtenho a ``message`` original?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The :class:`~ext.commands.Context` contains an attribute, :attr:`~.Context.message` to get the original
-message.
+O :class:`~ext.commands.Context` contém um atributo, :attr:`~.Context.message`, para obter a mensagem original.
 
-Example:
+Exemplo:
 
 .. code-block:: python3
 
     @bot.command()
     async def length(ctx):
-        await ctx.send(f'Your message is {len(ctx.message.content)} characters long.')
+        await ctx.send(f'Sua mensagem tem {len(ctx.message.content)} caracteres.')
 
-How do I make a subcommand?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        tree.copy_global_to(guild=discord.Object(123456789012345678))
+Como faço um subcomando?
+~~~~~~~~~~~~~~~~~~~~~~~~
 
-Use the :func:`~ext.commands.group` decorator. This will transform the callback into a :class:`~ext.commands.Group` which will allow you to add commands into
-the group operating as "subcommands". These groups can be arbitrarily nested as well.
+Use o decorador :func:`~ext.commands.group`. Isso transformará a função de callback em um :class:`~ext.commands.Group`, permitindo adicionar comandos ao grupo que funcionarão como "subcomandos". Esses grupos podem ser aninhados arbitrariamente também.
 
-Example:
+Exemplo:
 
 .. code-block:: python3
 
     @bot.group()
     async def git(ctx):
         if ctx.invoked_subcommand is None:
-            await ctx.send('Invalid git command passed...')
+            await ctx.send('Comando git inválido...')
 
     @git.command()
     async def push(ctx, remote: str, branch: str):
-        await ctx.send(f'Pushing to {remote} {branch}')
+        await ctx.send(f'Fazendo push para {remote} {branch}')
 
-This could then be used as ``?git push origin master``.
+Isso poderia ser usado como ``?git push origin master``.
 
-Views and Modals
+Views e Modals
 -----------------
 
-Questions regarding :class:`discord.ui.View`, :class:`discord.ui.Modal`, and their components such as buttons, select menus, etc.
+Perguntas sobre :class:`discord.ui.View`, :class:`discord.ui.Modal` e seus componentes, como botões, menus de seleção, etc.
 
-How can I disable all items on timeout?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Como posso desativar todos os itens após o tempo esgotar?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This requires three steps.
+Isso requer três passos:
 
-1. Attach a message to the :class:`~discord.ui.View` using either the return type of :meth:`~abc.Messageable.send` or retrieving it via :attr:`InteractionCallbackResponse.resource`.
-2. Inside :meth:`~ui.View.on_timeout`, loop over all items inside the view and mark them disabled.
-3. Edit the message we retrieved in step 1 with the newly modified view.
+1. Anexar uma mensagem ao :class:`~discord.ui.View` usando o tipo de retorno de :meth:`~abc.Messageable.send` ou recuperando-a via :attr:`InteractionCallbackResponse.resource`.
+2. Dentro de :meth:`~ui.View.on_timeout`, percorra todos os itens da view e marque-os como desativados.
+3. Edite a mensagem recuperada no passo 1 com a view modificada.
 
-Putting it all together, we can do this in a text command:
+Juntando tudo, podemos fazer isso em um comando de texto:
 
 .. code-block:: python3
 
     class MyView(discord.ui.View):
         async def on_timeout(self) -> None:
-            # Step 2
+            # Passo 2
             for item in self.children:
                 item.disabled = True
 
-            # Step 3
+            # Passo 3
             await self.message.edit(view=self)
 
-        @discord.ui.button(label='Example')
+        @discord.ui.button(label='Exemplo')
         async def example_button(self, interaction: discord.Interaction, button: discord.ui.Button):
-            await interaction.response.send_message('Hello!', ephemeral=True)
+            await interaction.response.send_message('Olá!', ephemeral=True)
 
     @bot.command()
     async def timeout_example(ctx):
-        """An example to showcase disabling buttons on timing out"""
+        """Exemplo de desativação de botões quando o tempo esgota"""
         view = MyView()
-        # Step 1
-        view.message = await ctx.send('Press me!', view=view)
+        # Passo 1
+        view.message = await ctx.send('Clique em mim!', view=view)
 
-Application commands, when you respond with :meth:`InteractionResponse.send_message`, return an instance of :class:`InteractionCallbackResponse` which contains the message you sent. This is the message you should attach to the view.
+Comandos de aplicação, quando você responde com :meth:`InteractionResponse.send_message`, retornam uma instância de :class:`InteractionCallbackResponse`, que contém a mensagem enviada. Esta é a mensagem que você deve anexar à view.
 
-Putting it all together, using the previous view definition:
+Juntando tudo, usando a definição de view anterior:
 
 .. code-block:: python3
 
     @tree.command()
     async def more_timeout_example(interaction):
-        """Another example to showcase disabling buttons on timing out"""
+        """Outro exemplo de desativação de botões quando o tempo esgota"""
         view = MyView()
-        callback = await interaction.response.send_message('Press me!', view=view)
+        callback = await interaction.response.send_message('Clique em mim!', view=view)
 
-        # Step 1
+        # Passo 1
         resource = callback.resource
-        # making sure it's an interaction response message
+        # garantindo que é uma mensagem de resposta à interação
         if isinstance(resource, discord.InteractionMessage):
             view.message = resource
 
 
-Application Commands
+Comandos de Aplicação
 --------------------
 
-Questions regarding Discord's new application commands, commonly known as "slash commands" or "context menu commands".
+Perguntas sobre os novos comandos de aplicação do Discord, conhecidos como "slash commands" ou "context menu commands".
 
-My bot's commands are not showing up!
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Os comandos do meu bot não estão aparecendo!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-1. Did you :meth:`~.CommandTree.sync` your command? Commands need to be synced before they will appear.
-2. Did you invite your bot with the correct permissions? Bots need to be invited with the ``applications.commands``
-   scope in addition to the ``bot`` scope. For example, invite the bot with the following URL:
+1. Você fez :meth:`~.CommandTree.sync` no seu comando? Comandos precisam ser sincronizados antes de aparecer.
+2. Você convidou o bot com as permissões corretas? Bots precisam ser convidados com o escopo ``applications.commands`` além do escopo ``bot``. Por exemplo, use a URL:
    ``https://discord.com/oauth2/authorize?client_id=<client id>&scope=applications.commands+bot``.
-   Alternatively, if you use :func:`utils.oauth_url`, you can call the function as such:
-   ``oauth_url(<other options>, scopes=("bot", "applications.commands"))``.
+   Alternativamente, se usar :func:`utils.oauth_url`, você pode chamar a função assim:
+   ``oauth_url(<outras opções>, scopes=("bot", "applications.commands"))``.
 
-How do I restrict a command to a specific guild?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Como restringir um comando a uma guilda específica?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To restrict an application command to one or more guilds, you must register it as a **guild command** instead of a 
-global command. Guild commands are only available in the specified guild(s).
+Para restringir um comando de aplicação a uma ou mais guildas, você deve registrá-lo como um **comando de guilda** em vez de global. Comandos de guilda só estarão disponíveis nas guildas especificadas.
 
-The most straightforward way is to use the :meth:`~app_commands.guilds` decorator on your command or GroupCog.
+A forma mais direta é usar o decorador :meth:`~app_commands.guilds` no seu comando ou GroupCog.
 
-``123456789012345678`` should be replaced with the actual guild ID you want to restrict the command to.
+``123456789012345678`` deve ser substituído pelo ID real da guilda que deseja restringir.
 
 .. code-block:: python3
 
-    @app_commands.command()  # or @tree.command()
-    @app_commands.guilds(123456789012345678)  # or @app_commands.guilds(discord.Object(123456789012345678))
+    @app_commands.command()  # ou @tree.command()
+    @app_commands.guilds(123456789012345678)  # ou @app_commands.guilds(discord.Object(123456789012345678))
     async def ping(interaction: Interaction):
         await interaction.response.send_message("Pong!")
 
-    # or GroupCog (applies to all subcommands):
+    # ou GroupCog (aplica-se a todos os subcomandos):
 
     @app_commands.guilds(123456789012345678)
     class MyGroup(commands.GroupCog):
@@ -526,15 +525,15 @@ The most straightforward way is to use the :meth:`~app_commands.guilds` decorato
         async def pong(self, interaction: Interaction):
             await interaction.response.send_message("Ping!")
 
-After that, you must :meth:`~app_commands.CommandTree.sync` the command tree for each guild:
+Depois disso, você deve :meth:`~app_commands.CommandTree.sync` a árvore de comandos para cada guilda:
 
 .. code-block:: python3
 
     await tree.sync(guild=discord.Object(123456789012345678))
 
-Other methods to restrict commands to specific guilds include:
+Outros métodos para restringir comandos a guildas específicas incluem:
 
-- Using the ``guild`` or ``guilds`` argument in the :meth:`~app_commands.CommandTree.command` decorator:
+- Usar o argumento ``guild`` ou ``guilds`` no decorador :meth:`~app_commands.CommandTree.command`:
 
     .. code-block:: python3
 
@@ -542,7 +541,7 @@ Other methods to restrict commands to specific guilds include:
         async def ping(interaction: Interaction):
             await interaction.response.send_message("Pong!")
 
-- Adding commands with :meth:`~app_commands.CommandTree.add_command` and specifying ``guild`` or ``guilds``:
+- Adicionar comandos com :meth:`~app_commands.CommandTree.add_command` especificando ``guild`` ou ``guilds``:
 
     .. code-block:: python3
 
@@ -554,13 +553,13 @@ Other methods to restrict commands to specific guilds include:
 
     .. warning::
 
-        Do not combine this method with the :meth:`~app_commands.CommandTree.command` decorator,
-        as it will cause duplicate commands.
+        Não combine este método com o decorador :meth:`~app_commands.CommandTree.command`,
+        pois causará comandos duplicados.
 
-- Using ``guild`` or ``guilds`` in :meth:`~ext.commands.Bot.add_cog`:
+- Usar ``guild`` ou ``guilds`` em :meth:`~ext.commands.Bot.add_cog`:
 
-    This is mainly for :class:`~ext.commands.GroupCog`, but also works for cogs with application commands.
-    Note: This does not work with hybrid app commands (:issue:`9366`).
+    Isso é principalmente para :class:`~ext.commands.GroupCog`, mas também funciona para cogs com comandos de aplicação.
+    Nota: Isso não funciona com comandos híbridos de aplicação (:issue:`9366`).
 
     .. code-block:: python3
 
@@ -572,9 +571,9 @@ Other methods to restrict commands to specific guilds include:
         async def setup(bot: commands.Bot) -> None:
             await bot.add_cog(MyCog(...), guild=discord.Object(123456789012345678))
 
-- Using :meth:`~app_commands.CommandTree.copy_global_to`:
+- Usar :meth:`~app_commands.CommandTree.copy_global_to`:
 
-    This copies all global commands to a specific guild. This is mainly for development purposes.
+    Isso copia todos os comandos globais para uma guilda específica. Principalmente usado para desenvolvimento.
 
     .. code-block:: python3
 

@@ -16,15 +16,15 @@ em versões específicas.
 v2.6.1
 -------
 
-Bug Fixes
+Correções de Bugs
 ~~~~~~~~~~
 
-- Fix :attr:`ui.Section.children` and :attr:`ui.Section.accessory` having ``None`` as the :attr:`Item.parent` (:issue:`10269`)
-- Fix error when using a :class:`ui.DynamicItem` inside an :class:`ui.Section`
-- Fix :class:`ui.DynamicItem` not working when set as an :attr:`ui.Section.acessory` (:issue:`10271`)
-- Fix :attr:`ui.LayoutView.total_children_count` being inaccurate when adding nested items
-- Fix crash when accessing :attr:`AuditLogEntry.category` for unknown audit log actions
-- |tasks| Add logging statement when a handled exception occurs (:issue:`10276`)
+- Corrige :attr:`ui.Section.children` e :attr:`ui.Section.accessory` retornando ``None`` como :attr:`Item.parent` (:issue:`10269`)
+- Corrige erro ao usar um :class:`ui.DynamicItem` dentro de uma :class:`ui.Section`
+- Corrige :class:`ui.DynamicItem` não funcionando quando definido como :attr:`ui.Section.accessory` (:issue:`10271`)
+- Corrige :attr:`ui.LayoutView.total_children_count` impreciso ao adicionar itens aninhados
+- Corrige crash ao acessar :attr:`AuditLogEntry.category` para ações de log de auditoria desconhecidas
+- |tasks| Adiciona declaração de log quando uma exceção tratada ocorre (:issue:`10276`)
 
 .. _vp2p6p0:
 
@@ -622,7 +622,7 @@ Diversos
 v2.1.1
 -------
 
-Bug Fixes
+Correções de Bugs
 ~~~~~~~~~~
 
 - Corrigido crash envolvendo GIF stickers ao buscar a extensão do filename.
@@ -897,7 +897,7 @@ Diversos
 v1.5.1
 -------
 
-Bug Fixes
+Correções de Bugs
 ~~~~~~~~~~~
 
 - Fix :func:`utils.escape_markdown` not escaping quotes properly (:issue:`5897`)
@@ -950,7 +950,7 @@ New Features
 - Add alias for :attr:`PublicUserFlags.verified_bot_developer` under :attr:`PublicUserFlags.early_verified_bot_developer` (:issue:`5849`)
 - |commands| Add support for ``require_var_positional`` for :class:`Command` (:issue:`5793`)
 
-Bug Fixes
+Correções de Bugs
 ~~~~~~~~~~
 
 - Fix issue with :meth:`Guild.by_category` not showing certain channels.
@@ -984,7 +984,7 @@ v1.4.2
 
 This is a maintenance release with backports from :ref:`vp1p5p0`.
 
-Bug Fixes
+Correções de Bugs
 ~~~~~~~~~~~
 
 - Fix issue with :meth:`Guild.by_category` not showing certain channels.
@@ -1010,7 +1010,7 @@ Miscellaneous
 v1.4.1
 --------
 
-Bug Fixes
+Correções de Bugs
 ~~~~~~~~~~~
 
 - Properly terminate the connection when :meth:`Client.close` is called (:issue:`5207`)
@@ -1081,7 +1081,7 @@ New Features
 - |tasks| Allow usage of custom error handlers similar to the command extensions to tasks using :meth:`Loop.error <.ext.tasks.Loop.error>` decorator (:issue:`2621`)
 
 
-Bug Fixes
+Correções de Bugs
 ~~~~~~~~~~~~
 
 - Fix issue with :attr:`PartialEmoji.url` reads leading to a failure (:issue:`4015`, :issue:`4016`)
@@ -1132,7 +1132,7 @@ Miscellaneous
 v1.3.4
 --------
 
-Bug Fixes
+Correções de Bugs
 ~~~~~~~~~~~
 
 - Fix an issue with channel overwrites causing multiple issues including crashes (:issue:`5109`)
@@ -1142,7 +1142,7 @@ Bug Fixes
 v1.3.3
 --------
 
-Bug Fixes
+Correções de Bugs
 ~~~~~~~~~~~~
 
 - Change default WS close to 4000 instead of 1000.
@@ -1157,7 +1157,7 @@ v1.3.2
 
 Another minor bug fix release.
 
-Bug Fixes
+Correções de Bugs
 ~~~~~~~~~~~
 
 - Higher the wait time during the ``GUILD_CREATE`` stream before ``on_ready`` is fired for :class:`AutoShardedClient`.
@@ -1175,7 +1175,7 @@ v1.3.1
 
 Minor bug fix release.
 
-Bug Fixes
+Correções de Bugs
 ~~~~~~~~~~~
 
 - Fix fetching invites in guilds that the user is not in.
@@ -1192,7 +1192,7 @@ Miscellaneous
 v1.3.0
 --------
 
-This version comes with a lot of bug fixes and new features. It's been in development for a lot longer than was anticipated!
+This version comes with a lot of Correções de Bugs and new features. It's been in development for a lot longer than was anticipated!
 
 New Features
 ~~~~~~~~~~~~~~
@@ -1260,7 +1260,7 @@ New Features
 - |tasks| :meth:`Loop.add_exception_type <.ext.tasks.Loop.add_exception_type>` now allows multiple exceptions to be set. (:issue:`2333`)
 - |tasks| Add :attr:`Loop.next_iteration <.ext.tasks.Loop.next_iteration>` property. (:issue:`2305`)
 
-Bug Fixes
+Correções de Bugs
 ~~~~~~~~~~
 
 - Fix issue with permission resolution sometimes failing for guilds with no owner.
@@ -1311,7 +1311,7 @@ Miscellaneous
 v1.2.5
 --------
 
-Bug Fixes
+Correções de Bugs
 ~~~~~~~~~~~
 
 - Fix a bug that caused crashes due to missing ``animated`` field in Emoji structures in reactions.
@@ -1321,7 +1321,7 @@ Bug Fixes
 v1.2.4
 --------
 
-Bug Fixes
+Correções de Bugs
 ~~~~~~~~~~~
 
 - Fix a regression when :attr:`Message.channel` would be ``None``.
@@ -1336,7 +1336,7 @@ Bug Fixes
 v1.2.3
 --------
 
-Bug Fixes
+Correções de Bugs
 ~~~~~~~~~~~
 
 - Fix an AttributeError when accessing :attr:`Member.premium_since` in :func:`on_member_update`. (:issue:`2213`)
@@ -1350,7 +1350,7 @@ Bug Fixes
 v1.2.2
 --------
 
-Bug Fixes
+Correções de Bugs
 ~~~~~~~~~~~
 
 - Audit log related attribute access have been fixed to not error out when they shouldn't have.
@@ -1360,7 +1360,7 @@ Bug Fixes
 v1.2.1
 --------
 
-Bug Fixes
+Correções de Bugs
 ~~~~~~~~~~~
 
 - :attr:`User.avatar_url` and related attributes no longer raise an error.
@@ -1396,7 +1396,7 @@ New Features
 - |tasks| Add :meth:`Loop.failed <.ext.tasks.Loop.failed>` to query if a task had failed somehow.
 - |tasks| Add :meth:`Loop.change_interval <.ext.tasks.Loop.change_interval>` to change the sleep interval at runtime (:issue:`2158`, :issue:`2162`)
 
-Bug Fixes
+Correções de Bugs
 ~~~~~~~~~~~
 
 - Fix internal error when using :meth:`Guild.prune_members`.
@@ -1426,7 +1426,7 @@ Miscellaneous
 v1.1.1
 --------
 
-Bug Fixes
+Correções de Bugs
 ~~~~~~~~~~~~
 
 - Webhooks do not overwrite data on retrying their HTTP requests (:issue:`2140`)
@@ -1468,7 +1468,7 @@ New Features
 - Add :attr:`.Command.parents` to fetch the parents of a command (:issue:`2104`)
 
 
-Bug Fixes
+Correções de Bugs
 ~~~~~~~~~~~~
 
 - Fix :exc:`AttributeError` when using ``__repr__`` on :class:`Widget`.
@@ -1508,7 +1508,7 @@ Miscellaneous
 v1.0.1
 --------
 
-Bug Fixes
+Correções de Bugs
 ~~~~~~~~~~~
 
 - Fix issue with speaking state being cast to ``int`` when it was invalid.
@@ -1529,7 +1529,7 @@ see :ref:`the migrating page <migrating_1_0>`.
 v0.16.6
 --------
 
-Bug Fixes
+Correções de Bugs
 ~~~~~~~~~~
 
 - Fix issue with :meth:`Client.create_server` that made it stop working.
@@ -1545,7 +1545,7 @@ v0.16.1
 
 This release is just a bug fix release with some better rate limit implementation.
 
-Bug Fixes
+Correções de Bugs
 ~~~~~~~~~~~
 
 - Servers are now properly chunked for user bots.
@@ -1565,7 +1565,7 @@ New Features
 - Add :attr:`Channel.overwrites` to get all the permission overwrites of a channel.
 - Add :attr:`Server.features` to get information about partnered servers.
 
-Bug Fixes
+Correções de Bugs
 ~~~~~~~~~~
 
 - Timeout when waiting for offline members while triggering :func:`on_ready`.
@@ -1613,7 +1613,7 @@ For the command extension, the following changed:
 v0.14.3
 ---------
 
-Bug Fixes
+Correções de Bugs
 ~~~~~~~~~~~
 
 - Fix crash when dealing with MESSAGE_REACTION_REMOVE
@@ -1630,7 +1630,7 @@ New Features
 - :meth:`Client.wait_for_reaction` now returns a namedtuple with ``reaction`` and ``user`` attributes.
     - This is for better support in the case that ``None`` is returned since tuple unpacking can lead to issues.
 
-Bug Fixes
+Correções de Bugs
 ~~~~~~~~~~
 
 - Fix bug that disallowed ``None`` to be passed for ``emoji`` parameter in :meth:`Client.wait_for_reaction`.
@@ -1640,7 +1640,7 @@ Bug Fixes
 v0.14.1
 ---------
 
-Bug fixes
+Correções de Bugs
 ~~~~~~~~~~
 
 - Fix bug with ``Reaction`` not being visible at import.
@@ -1651,7 +1651,7 @@ Bug fixes
 v0.14.0
 --------
 
-This update adds new API features and a couple of bug fixes.
+This update adds new API features and a couple of Correções de Bugs.
 
 New Features
 ~~~~~~~~~~~~~
@@ -1667,7 +1667,7 @@ New Features
     - :attr:`Message.reactions` to get reactions from a message.
     - :meth:`Client.wait_for_reaction` to wait for a reaction from a user.
 
-Bug Fixes
+Correções de Bugs
 ~~~~~~~~~~
 
 - Fix bug with Paginator still allowing lines that are too long.
@@ -1703,7 +1703,7 @@ New Features
 
     - This is the only method that allows changing your status to invisible or do not disturb.
 
-Bug Fixes
+Correções de Bugs
 ~~~~~~~~~~
 
 - Paginator pages do not exceed their max_size anymore (:issue:`340`)
@@ -1755,7 +1755,7 @@ For the command extension, the following are new:
 - Add coroutine support for ``Bot.command_prefix``.
 - Add a method to reset command cooldown.
 
-Bug Fixes
+Correções de Bugs
 ~~~~~~~~~~
 
 - Fix bug that caused the library to not work with the latest ``websockets`` library.
@@ -1799,7 +1799,7 @@ For the command extension, the following are new:
 - Command cooldown system with the ``cooldown`` decorator.
 - ``UserInputError`` exception for the hierarchy for user input related errors.
 
-Bug Fixes
+Correções de Bugs
 ~~~~~~~~~~
 
 - :attr:`Client.email` is now saved when using a token for user accounts.
@@ -1807,7 +1807,7 @@ Bug Fixes
 - Fix bug where discriminators would not update.
 - Handle cases where ``HEARTBEAT`` opcode is received. This caused bots to disconnect seemingly randomly.
 
-For the command extension, the following bug fixes apply:
+For the command extension, the following Correções de Bugs apply:
 
 - ``Bot.check`` decorator is actually a decorator not requiring parentheses.
 - ``Bot.remove_command`` and ``Group.remove_command`` no longer throw if the command doesn't exist.
@@ -1865,7 +1865,7 @@ Performance Improvements
   receive performance improvements by having to download and process less data.
 - While minor, change regex from ``\d+`` to ``[0-9]+`` to avoid unnecessary unicode character lookups.
 
-Bug Fixes
+Correções de Bugs
 ~~~~~~~~~~
 
 - Fix bug where guilds being updated did not edit the items in cache.

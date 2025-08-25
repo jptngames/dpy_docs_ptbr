@@ -4,19 +4,19 @@
 .. versionadded:: 1.5
 .. _intents_primer:
 
-A Primer to Gateway Intents
+Um Guia de Intents do Gateway
 =============================
 
-In version 1.5 comes the introduction of :class:`Intents`. This is a radical change in how bots are written. An intent basically allows a bot to subscribe to specific buckets of events. The events that correspond to each intent is documented in the individual attribute of the :class:`Intents` documentation.
+Na versão 1.5 foi introduzida a classe :class:`Intents`. Isso representa uma mudança radical na forma como bots são escritos. Um intent basicamente permite que um bot se inscreva em grupos específicos de eventos. Os eventos que correspondem a cada intent estão documentados nos atributos individuais da documentação de :class:`Intents`.
 
-These intents are passed to the constructor of :class:`Client` or its subclasses (:class:`AutoShardedClient`, :class:`~.AutoShardedBot`, :class:`~.Bot`) with the ``intents`` argument.
+Esses intents são passados para o construtor de :class:`Client` ou suas subclasses (:class:`AutoShardedClient`, :class:`~.AutoShardedBot`, :class:`~.Bot`) através do argumento ``intents``.
 
-What intents are needed?
---------------------------
+Quais intents são necessários?
+------------------------------
 
-The intents that are necessary for your bot can only be dictated by yourself. Each attribute in the :class:`Intents` class documents what :ref:`events <discord-api-events>` it corresponds to and what kind of cache it enables.
+Os intents necessários para o seu bot só podem ser determinados por você. Cada atributo da classe :class:`Intents` documenta a quais :ref:`eventos <discord-api-events>` ele corresponde e que tipo de cache ele habilita.
 
-For example, if you want a bot that functions without spammy events like presences or typing then we could do the following:
+Por exemplo, se você quiser um bot que funcione sem eventos excessivos como presenças ou digitação, podemos fazer o seguinte:
 
 .. code-block:: python3
    :emphasize-lines: 7,9,10
@@ -26,148 +26,146 @@ For example, if you want a bot that functions without spammy events like presenc
     intents.typing = False
     intents.presences = False
 
-    # Somewhere else:
+    # Em outro lugar:
     # client = discord.Client(intents=intents)
-    # or
+    # ou
     # from discord.ext import commands
     # bot = commands.Bot(command_prefix='!', intents=intents)
 
-Note that this doesn't enable :attr:`Intents.members` since it's a privileged intent.
+Observe que isso não habilita :attr:`Intents.members`, pois é um intent privilegiado.
 
-Another example showing a bot that only deals with messages and guild information:
+Outro exemplo mostrando um bot que só lida com mensagens e informações do servidor:
 
 .. code-block:: python3
    :emphasize-lines: 7,9,10
 
     import discord
     intents = discord.Intents(messages=True, guilds=True)
-    # If you also want reaction events enable the following:
+    # Se você também quiser eventos de reação, habilite o seguinte:
     # intents.reactions = True
 
-    # Somewhere else:
+    # Em outro lugar:
     # client = discord.Client(intents=intents)
-    # or
+    # ou
     # from discord.ext import commands
     # bot = commands.Bot(command_prefix='!', intents=intents)
 
 .. _privileged_intents:
 
-Privileged Intents
+Intents Privilegiados
 ---------------------
 
-With the API change requiring bot authors to specify intents, some intents were restricted further and require more manual steps. These intents are called **privileged intents**.
+Com a mudança na API exigindo que autores de bots especifiquem intents, alguns intents foram restringidos e requerem etapas manuais adicionais. Esses intents são chamados de **intents privilegiados**.
 
-A privileged intent is one that requires you to go to the developer portal and manually enable it. To enable privileged intents do the following:
+Um intent privilegiado é aquele que exige que você acesse o portal de desenvolvedores e o habilite manualmente. Para habilitar intents privilegiados, faça o seguinte:
 
-1. Make sure you're logged on to the `Discord website <https://discord.com>`_.
-2. Navigate to the `application page <https://discord.com/developers/applications>`_.
-3. Click on the bot you want to enable privileged intents for.
-4. Navigate to the bot tab on the left side of the screen.
+1. Certifique-se de que está logado no `site do Discord <https://discord.com>`_.
+2. Navegue até a `página de aplicações <https://discord.com/developers/applications>`_.
+3. Clique no bot para o qual deseja habilitar intents privilegiados.
+4. Vá para a aba do bot no lado esquerdo da tela.
 
     .. image:: /images/discord_bot_tab.png
-        :alt: The bot tab in the application page.
+        :alt: A aba do bot na página de aplicações.
 
-5. Scroll down to the "Privileged Gateway Intents" section and enable the ones you want.
+5. Role até a seção "Privileged Gateway Intents" e habilite os intents que você deseja.
 
     .. image:: /images/discord_privileged_intents.png
-        :alt: The privileged gateway intents selector.
+        :alt: O seletor de intents privilegiados do gateway.
 
 .. warning::
 
-    Enabling privileged intents when your bot is in over 100 guilds requires going through `bot verification <https://support.discord.com/hc/en-us/articles/360040720412>`_. If your bot is already verified and you would like to enable a privileged intent you must go through `Discord support <https://dis.gd/contact>`_ and talk to them about it.
+    Habilitar intents privilegiados quando seu bot está em mais de 100 servidores exige passar pelo processo de `verificação de bot (Inglês)<https://support-dev.discord.com/hc/pt-br/articles/23926564536471-How-Do-I-Get-My-App-Verified>`_. Se o seu bot já estiver verificado e você quiser habilitar um intent privilegiado, você deve entrar em contato com o `suporte do Discord <https://dis.gd/contact>`_.
 
 .. note::
 
-    Even if you enable intents through the developer portal, you still have to enable the intents
-    through code as well.
+    Mesmo que você habilite intents pelo portal de desenvolvedores, ainda será necessário habilitá-los via código também.
 
-Do I need privileged intents?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Preciso de intents privilegiados?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This is a quick checklist to see if you need specific privileged intents.
+Este é um checklist rápido para verificar se você precisa de intents privilegiados específicos.
 
 .. _need_presence_intent:
 
-Presence Intent
+Intent de Presença
 +++++++++++++++++
 
-- Whether you use :attr:`Member.status` at all to track member statuses.
-- Whether you use :attr:`Member.activity` or :attr:`Member.activities` to check member's activities.
+- Se você usa :attr:`Member.status` para acompanhar o status dos membros.
+- Se você usa :attr:`Member.activity` ou :attr:`Member.activities` para verificar atividades dos membros.
 
 .. _need_members_intent:
 
-Member Intent
-+++++++++++++++
+Intent de Membros
++++++++++++++++++
 
-- Whether you track member joins or member leaves, corresponds to :func:`on_member_join` and :func:`on_member_remove` events.
-- Whether you want to track member updates such as nickname or role changes.
-- Whether you want to track user updates such as usernames, avatars, discriminators, etc.
-- Whether you want to request the guild member list through :meth:`Guild.chunk` or :meth:`Guild.fetch_members`.
-- Whether you want high accuracy member cache under :attr:`Guild.members`.
+- Se você acompanha entradas ou saídas de membros, correspondendo aos eventos :func:`on_member_join` e :func:`on_member_remove`.
+- Se você deseja acompanhar atualizações de membros, como alterações de apelido ou funções.
+- Se você deseja acompanhar atualizações de usuário, como nomes, avatares, discriminadores, etc.
+- Se você deseja solicitar a lista de membros do servidor via :meth:`Guild.chunk` ou :meth:`Guild.fetch_members`.
+- Se você deseja um cache de membros preciso via :attr:`Guild.members`.
 
 .. _need_message_content_intent:
 
-Message Content
-+++++++++++++++++
+Conteúdo de Mensagem
+++++++++++++++++++++
 
-- Whether you use :attr:`Message.content` to check message content.
-- Whether you use :attr:`Message.attachments` to check message attachments.
-- Whether you use :attr:`Message.embeds` to check message embeds.
-- Whether you use :attr:`Message.components` to check message components.
-- Whether you use :attr:`Message.poll` to check the message polls.
-- Whether you use the commands extension with a non-mentioning prefix.
+- Se você usa :attr:`Message.content` para verificar o conteúdo de mensagens.
+- Se você usa :attr:`Message.attachments` para verificar anexos.
+- Se você usa :attr:`Message.embeds` para verificar embeds.
+- Se você usa :attr:`Message.components` para verificar componentes de mensagens.
+- Se você usa a extensão de comandos com prefixo que não mencione.
 
 .. _intents_member_cache:
 
-Member Cache
--------------
+Cache de Membros
+----------------
 
-Along with intents, Discord now further restricts the ability to cache members and expects bot authors to cache as little as is necessary. However, to properly maintain a cache the :attr:`Intents.members` intent is required in order to track the members who left and properly evict them.
+Junto com intents, o Discord agora restringe ainda mais a capacidade de cache de membros e espera que autores de bots armazenem apenas o necessário. Para manter um cache corretamente, o intent :attr:`Intents.members` é necessário para rastrear os membros que saíram e removê-los apropriadamente.
 
-To aid with member cache where we don't need members to be cached, the library now has a :class:`MemberCacheFlags` flag to control the member cache. The documentation page for the class goes over the specific policies that are possible.
+Para ajudar com cache de membros quando não precisamos armazená-los, a biblioteca possui a flag :class:`MemberCacheFlags`. A documentação da classe detalha as políticas possíveis.
 
-It should be noted that certain things do not need a member cache since Discord will provide full member information if possible. For example:
+Algumas situações não exigem cache de membros, já que o Discord fornece informações completas se possível. Por exemplo:
 
-- :func:`on_message` will have :attr:`Message.author` be a member even if cache is disabled.
-- :func:`on_voice_state_update` will have the ``member`` parameter be a member even if cache is disabled.
-- :func:`on_reaction_add` will have the ``user`` parameter be a member when in a guild even if cache is disabled.
-- :func:`on_raw_reaction_add` will have :attr:`RawReactionActionEvent.member` be a member when in a guild even if cache is disabled.
-- The reaction add events do not contain additional information when in direct messages. This is a Discord limitation.
-- The reaction removal events do not have member information. This is a Discord limitation.
+- :func:`on_message` terá :attr:`Message.author` como membro mesmo se o cache estiver desativado.
+- :func:`on_voice_state_update` terá o parâmetro ``member`` como membro mesmo se o cache estiver desativado.
+- :func:`on_reaction_add` terá o parâmetro ``user`` como membro quando em um servidor, mesmo com cache desativado.
+- :func:`on_raw_reaction_add` terá :attr:`RawReactionActionEvent.member` como membro quando em um servidor, mesmo com cache desativado.
+- Eventos de adição de reação não contêm informações adicionais em mensagens diretas. Isso é uma limitação do Discord.
+- Eventos de remoção de reação não têm informações de membros. Isso é uma limitação do Discord.
 
-Other events that take a :class:`Member` will require the use of the member cache. If absolute accuracy over the member cache is desirable, then it is advisable to have the :attr:`Intents.members` intent enabled.
+Outros eventos que recebem um :class:`Member` exigirão o uso do cache. Para precisão absoluta, recomenda-se habilitar :attr:`Intents.members`.
 
 .. _retrieving_members:
 
-Retrieving Members
+Recuperando Membros
 --------------------
 
-If the cache is disabled or you disable chunking guilds at startup, we might still need a way to load members. The library offers a few ways to do this:
+Se o cache estiver desativado ou você desativar chunking de servidores na inicialização, ainda podemos precisar carregar membros. A biblioteca oferece algumas formas:
 
 - :meth:`Guild.query_members`
-    - Used to query members by a prefix matching nickname or username.
-    - This can also be used to query members by their user ID.
-    - This uses the gateway and not the HTTP.
+    - Usado para consultar membros por prefixo de apelido ou nome.
+    - Também pode ser usado para consultar membros por ID de usuário.
+    - Usa o gateway e não HTTP.
 - :meth:`Guild.chunk`
-    - This can be used to fetch the entire member list through the gateway.
+    - Pode ser usado para buscar a lista completa de membros via gateway.
 - :meth:`Guild.fetch_member`
-    - Used to fetch a member by ID through the HTTP API.
+    - Usado para buscar um membro por ID via API HTTP.
 - :meth:`Guild.fetch_members`
-    - used to fetch a large number of members through the HTTP API.
+    - Usado para buscar um grande número de membros via API HTTP.
 
-It should be noted that the gateway has a strict rate limit of 120 requests per 60 seconds.
+O gateway possui um limite de 120 requisições a cada 60 segundos.
 
-Troubleshooting
-------------------
+Solução de Problemas
+--------------------
 
-Some common issues relating to the mandatory intent change.
+Alguns problemas comuns relacionados à mudança obrigatória de intents.
 
-Where'd my members go?
-~~~~~~~~~~~~~~~~~~~~~~~~
+Cadê meus membros?
+~~~~~~~~~~~~~~~~~~
 
-Due to an :ref:`API change <intents_member_cache>` Discord is now forcing developers who want member caching to explicitly opt-in to it. This is a Discord mandated change and there is no way to bypass it. In order to get members back you have to explicitly enable the :ref:`members privileged intent <privileged_intents>` and change the :attr:`Intents.members` attribute to true.
+Devido a uma :ref:`mudança na API <intents_member_cache>`, o Discord agora força os desenvolvedores que desejam cache de membros a habilitarem explicitamente. Para recuperar os membros, você deve habilitar explicitamente o :ref:`intent privilegiado de membros <privileged_intents>` e definir :attr:`Intents.members` como True.
 
-For example:
+Por exemplo:
 
 .. code-block:: python3
    :emphasize-lines: 3,6,8,9
@@ -176,27 +174,27 @@ For example:
     intents = discord.Intents.default()
     intents.members = True
 
-    # Somewhere else:
+    # Em outro lugar:
     # client = discord.Client(intents=intents)
-    # or
+    # ou
     # from discord.ext import commands
     # bot = commands.Bot(command_prefix='!', intents=intents)
 
-Why does ``on_ready`` take so long to fire?
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Por que ``on_ready`` demora tanto para ser acionado?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-As part of the API change regarding intents, Discord also changed how members are loaded in the beginning. Originally the library could request 75 guilds at once and only request members from guilds that have the :attr:`Guild.large` attribute set to ``True``. With the new intent changes, Discord mandates that we can only send 1 guild per request. This causes a 75x slowdown which is further compounded by the fact that *all* guilds, not just large guilds are being requested.
+Como parte da mudança da API sobre intents, o Discord também alterou como membros são carregados no início. Originalmente, a biblioteca podia solicitar 75 servidores de uma vez e buscar membros apenas nos servidores com :attr:`Guild.large` definido como ``True``. Com a mudança de intents, o Discord exige que apenas 1 servidor seja solicitado por vez. Isso causa uma desaceleração de 75x, ainda maior pois *todos* os servidores, não apenas os grandes, estão sendo solicitados.
 
-There are a few solutions to fix this.
+Algumas soluções para corrigir isso:
 
-The first solution is to request the privileged presences intent along with the privileged members intent and enable both of them. This allows the initial member list to contain online members just like the old gateway. Note that we're still limited to 1 guild per request but the number of guilds we request is significantly reduced.
+A primeira solução é solicitar o intent privilegiado de presenças junto com o intent privilegiado de membros e habilitar ambos. Isso permite que a lista inicial contenha membros online, como no gateway antigo. Note que ainda estamos limitados a 1 servidor por solicitação, mas o número de servidores solicitados é significativamente reduzido.
 
-The second solution is to disable member chunking by setting ``chunk_guilds_at_startup`` to ``False`` when constructing a client. Then, when chunking for a guild is necessary you can use the various techniques to :ref:`retrieve members <retrieving_members>`.
+A segunda solução é desabilitar chunking de membros definindo ``chunk_guilds_at_startup`` como ``False`` ao construir o cliente. Quando for necessário, você pode usar as várias técnicas para :ref:`recuperar membros <retrieving_members>`.
 
-To illustrate the slowdown caused by the API change, take a bot who is in 840 guilds and 95 of these guilds are "large" (over 250 members).
+Para ilustrar a desaceleração causada pela mudança da API, considere um bot em 840 servidores, dos quais 95 são "grandes" (mais de 250 membros).
 
-Under the original system this would result in 2 requests to fetch the member list (75 guilds, 20 guilds) roughly taking 60 seconds. With :attr:`Intents.members` but not :attr:`Intents.presences` this requires 840 requests, with a rate limit of 120 requests per 60 seconds means that due to waiting for the rate limit it totals to around 7 minutes of waiting for the rate limit to fetch all the members. With both :attr:`Intents.members` and :attr:`Intents.presences` we mostly get the old behaviour so we're only required to request for the 95 guilds that are large, this is slightly less than our rate limit so it's close to the original timing to fetch the member list.
+No sistema original, isso resultaria em 2 requisições para buscar a lista de membros (75 servidores, 20 servidores), levando cerca de 60 segundos. Com :attr:`Intents.members` mas não :attr:`Intents.presences`, isso exige 840 requisições, com limite de 120 requisições por 60 segundos, totalizando cerca de 7 minutos para buscar todos os membros. Com ambos :attr:`Intents.members` e :attr:`Intents.presences`, o comportamento antigo é praticamente mantido, já que só precisamos solicitar os 95 servidores grandes, próximo ao limite original.
 
-Unfortunately due to this change being required from Discord there is nothing that the library can do to mitigate this.
+Infelizmente, devido a esta exigência do Discord, não há nada que a biblioteca possa fazer para mitigar isso.
 
-If you truly dislike the direction Discord is going with their API, you can contact them via `support <https://dis.gd/contact>`_.
+Se você realmente não gosta da direção que o Discord está tomando com a API, você pode contatá-los via `suporte <https://dis.gd/contact>`_.

@@ -2,90 +2,85 @@
 
 .. _discord-intro:
 
-Creating a Bot Account
+Criando a Conta do bOT no Portal do Desenvolvedor
 ========================
 
-In order to work with the library and the Discord API in general, we must first create a Discord Bot account.
+Para trabalhar com a biblioteca e a API do Discord em geral, primeiro precisamos criar uma conta de Bot no Discord.
 
-Creating a Bot account is a pretty straightforward process.
+Criar uma conta de Bot é um processo bastante simples.
 
-1. Make sure you're logged on to the `Discord website <https://discord.com>`_.
-2. Navigate to the `application page <https://discord.com/developers/applications>`_
-3. Click on the "New Application" button.
+1. Certifique-se de que está logado no `site do Discord <https://discord.com>`_.
+2. Navegue até a `página de aplicações <https://discord.com/developers/applications>`_
+3. Clique no botão "Nova Aplicação".
 
     .. image:: /images/discord_create_app_button.png
-        :alt: The new application button.
+        :alt: O botão de nova aplicação.
 
-4. Give the application a name and click "Create".
+4. Dê um nome à aplicação e clique em "Criar".
 
     .. image:: /images/discord_create_app_form.png
-        :alt: The new application form filled in.
+        :alt: O formulário da nova aplicação preenchido.
 
-5. Navigate to the "Bot" tab to configure it.
-6. Make sure that **Public Bot** is ticked if you want others to invite your bot.
+5. Navegue até a aba "Bot" para configurá-la.
+6. Certifique-se de que **Bot Público** está marcado se você quiser que outros possam adicionar seu bot.
 
-    - You should also make sure that **Require OAuth2 Code Grant** is unchecked unless you
-      are developing a service that needs it. If you're unsure, then **leave it unchecked**.
+    - Também é recomendável que **Require OAuth2 Code Grant** não esteja marcado, a menos que você esteja desenvolvendo um serviço que precise disso. Se não tiver certeza, **deixe desmarcado**.
 
     .. image:: /images/discord_bot_user_options.png
-        :alt: How the Bot User options should look like for most people.
+        :alt: Como as opções do Bot User devem parecer para a maioria das pessoas.
 
-7. Copy the token using the "Copy" button.
+7. Copie o token usando o botão "Copiar".
 
-    - **This is not the Client Secret at the General Information page.**
+    - **Isso não é o Client Secret que aparece na página de Informações Gerais.**
 
     .. warning::
 
-        It should be worth noting that this token is essentially your bot's
-        password. You should **never** share this with someone else. In doing so,
-        someone can log in to your bot and do malicious things, such as leaving
-        servers, ban all members inside a server, or pinging everyone maliciously.
+        Vale notar que este token é essencialmente a senha do seu bot. Você **nunca** deve compartilhá-lo com outra pessoa. Ao fazer isso, alguém poderia entrar no seu bot e executar ações maliciosas, como sair de servidores, banir todos os membros de um servidor ou marcar todos de forma maliciosa.
 
-        The possibilities are endless, so **do not share this token.**
+        As possibilidades são infinitas, então **não compartilhe este token.**
 
-        If you accidentally leaked your token, click the "Regenerate" button as soon
-        as possible. This revokes your old token and re-generates a new one.
-        Now you need to use the new token to login.
+        Se você vazou o token acidentalmente, clique no botão "Regenerate" o quanto antes. Isso revoga o token antigo e gera um novo.
+        Agora você precisará usar o novo token para fazer login.
 
-And that's it. You now have a bot account and you can login with that token.
+E é isso. Agora você tem uma conta de bot e pode fazer login com esse token.
 
 .. _discord_invite_bot:
 
-Inviting Your Bot
+Convidando Seu Bot
 -------------------
 
-So you've made a Bot User but it's not actually in any server.
+Então você criou um Bot User, mas ele ainda não está em nenhum servidor.
 
-If you want to invite your bot you must create an invite URL for it.
+Se você quiser convidar seu bot, deve criar uma URL de convite para ele.
 
-1. Make sure you're logged on to the `Discord website <https://discord.com>`_.
-2. Navigate to the `application page <https://discord.com/developers/applications>`_
-3. Click on your bot's page.
-4. Go to the "OAuth2 > URL Generator" tab.
+1. Certifique-se de que está logado no `site do Discord <https://discord.com>`_.
+2. Navegue até a `página de aplicações <https://discord.com/developers/applications>`_
+3. Clique na página do seu bot.
+4. Vá para a aba "OAuth2 > Gerador de URL".
 
     .. image:: /images/discord_oauth2.png
-        :alt: How the OAuth2 page should look like.
+        :alt: Como a página OAuth2 deve parecer.
 
-5. Tick the "bot" checkbox under "scopes".
+5. Marque a caixa "bot" em "scopes".
 
     .. image:: /images/discord_oauth2_scope.png
-        :alt: The scopes checkbox with "bot" ticked.
+        :alt: A caixa de escopos com "bot" marcada.
 
-6. Tick the permissions required for your bot to function under "Bot Permissions".
+6. Marque as permissões necessárias para o funcionamento do seu bot em "Permissões do Bot".
 
-    - Please be aware of the consequences of requiring your bot to have the "Administrator" permission.
+    - Esteja ciente das consequências de conceder a permissão "Administrador" ao bot.
 
-    - Bot owners must have 2FA enabled for certain actions and permissions when added in servers that have Server-Wide 2FA enabled. Check the `2FA support page <https://support.discord.com/hc/en-us/articles/219576828-Setting-up-Two-Factor-Authentication>`_ for more information.
+    - Proprietários de bots devem ter 2FA habilitado para certas ações e permissões quando adicionados a servidores com 2FA habilitado. Confira a `página de suporte a 2FA <https://support.discord.com/hc/pt-br/articles/219576828-Configurando-a-verifica%C3%A7%C3%A3o-em-duas-etapas>`_ para mais informações.
 
     .. image:: /images/discord_oauth2_perms.png
-        :alt: The permission checkboxes with some permissions checked.
+        :alt: As caixas de permissões com algumas permissões marcadas.
 
-7. Now the resulting URL can be used to add your bot to a server. Copy and paste the URL into your browser, choose a server to invite the bot to, and click "Authorize".
+7. Agora a URL resultante pode ser usada para adicionar seu bot a um servidor. Copie e cole a URL no seu navegador, escolha um servidor para convidar o bot e clique em "Autorizar".
 
 
 .. note::
 
-    The person adding the bot needs "Manage Server" permissions to do so.
+    A pessoa que adiciona o bot precisa ter permissão de "Gerenciar Servidor".
 
-If you want to generate this URL dynamically at run-time inside your bot and using the
-:class:`discord.Permissions` interface, you can use :func:`discord.utils.oauth_url`.
+Se você quiser gerar essa URL dinamicamente em tempo de execução dentro do seu bot usando a interface
+:class:`discord.Permissions`, pode usar :func:`discord.utils.oauth_url`.

@@ -4,15 +4,14 @@
 .. versionadded:: 0.6.0
 .. _logging_setup:
 
-Setting Up Logging
-===================
+Configurando Logging
+=====================
 
-*discord.py* logs errors and debug information via the :mod:`logging` python
-module. In order to streamline this process, the library provides default configuration for the ``discord`` logger when using :meth:`Client.run`. It is strongly recommended that the logging module is configured, as no errors or warnings will be output if it is not set up.
+*discord.py* registra erros e informações de depuração via o módulo :mod:`logging` do Python. Para simplificar este processo, a biblioteca fornece uma configuração padrão para o logger ``discord`` ao usar :meth:`Client.run`. É fortemente recomendado que o módulo de logging seja configurado, pois nenhum erro ou aviso será exibido se não for configurado.
 
-The default logging configuration provided by the library will print to :data:`sys.stderr` using coloured output. You can configure it to send to a file instead by using one of the built-in :mod:`logging.handlers`, such as :class:`logging.FileHandler`.
+A configuração de logging padrão fornecida pela biblioteca imprime em :data:`sys.stderr` usando saída colorida. Você pode configurá-la para enviar para um arquivo usando um dos :mod:`logging.handlers` incorporados, como :class:`logging.FileHandler`.
 
-This can be done by passing it through :meth:`Client.run`:
+Isso pode ser feito passando o handler através de :meth:`Client.run`:
 
 .. code-block:: python3
 
@@ -20,17 +19,16 @@ This can be done by passing it through :meth:`Client.run`:
 
     handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 
-    # Assume client refers to a discord.Client subclass...
+    # Supondo que client seja uma subclasse de discord.Client...
     client.run(token, log_handler=handler)
 
-You can also disable the library's logging configuration completely by passing ``None``:
+Também é possível desabilitar completamente a configuração de logging da biblioteca passando ``None``:
 
 .. code-block:: python3
 
     client.run(token, log_handler=None)
 
-
-Likewise, configuring the log level to ``logging.DEBUG`` is also possible:
+Da mesma forma, configurar o nível de log para ``logging.DEBUG`` também é possível:
 
 .. code-block:: python3
 
@@ -38,18 +36,18 @@ Likewise, configuring the log level to ``logging.DEBUG`` is also possible:
 
     handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 
-    # Assume client refers to a discord.Client subclass...
+    # Supondo que client seja uma subclasse de discord.Client...
     client.run(token, log_handler=handler, log_level=logging.DEBUG)
 
-This is recommended, especially at verbose levels such as ``DEBUG``, as there are a lot of events logged and it would clog the stderr of your program.
+Isto é recomendado, especialmente em níveis verbosos como ``DEBUG``, pois muitos eventos são registrados e isso poderia congestionar o stderr do seu programa.
 
-If you want the logging configuration the library provides to affect all loggers rather than just the ``discord`` logger, you can pass ``root_logger=True`` inside :meth:`Client.run`:
+Se você deseja que a configuração de logging fornecida pela biblioteca afete todos os loggers, e não apenas o logger ``discord``, você pode passar ``root_logger=True`` dentro de :meth:`Client.run`:
 
 .. code-block:: python3
 
     client.run(token, log_handler=handler, root_logger=True)
 
-If you want to setup logging using the library provided configuration without using :meth:`Client.run`, you can use :func:`discord.utils.setup_logging`:
+Se você deseja configurar logging usando a configuração fornecida pela biblioteca sem usar :meth:`Client.run`, você pode usar :func:`discord.utils.setup_logging`:
 
 .. code-block:: python3
 
@@ -57,10 +55,10 @@ If you want to setup logging using the library provided configuration without us
 
     discord.utils.setup_logging()
 
-    # or, for example
+    # ou, por exemplo
     discord.utils.setup_logging(level=logging.INFO, root=False)
 
-More advanced setups are possible with the :mod:`logging` module. The example below configures a rotating file handler that outputs DEBUG output for everything the library outputs, except for HTTP requests:
+Configurações mais avançadas são possíveis com o módulo :mod:`logging`. O exemplo abaixo configura um handler de arquivo rotativo que registra DEBUG para tudo que a biblioteca registra, exceto requisições HTTP:
 
 .. code-block:: python3
 
@@ -76,20 +74,19 @@ More advanced setups are possible with the :mod:`logging` module. The example be
         filename='discord.log',
         encoding='utf-8',
         maxBytes=32 * 1024 * 1024,  # 32 MiB
-        backupCount=5,  # Rotate through 5 files
+        backupCount=5,  # Rotaciona por 5 arquivos
     )
     dt_fmt = '%Y-%m-%d %H:%M:%S'
     formatter = logging.Formatter('[{asctime}] [{levelname:<8}] {name}: {message}', dt_fmt, style='{')
     handler.setFormatter(formatter)
     logger.addHandler(handler)
 
-    # Assume client refers to a discord.Client subclass...
-    # Suppress the default configuration since we have our own
+    # Supondo que client seja uma subclasse de discord.Client...
+    # Suprime a configuração padrão já que temos a nossa própria
     client.run(token, log_handler=None)
 
-
-For more information, check the documentation and tutorial of the :mod:`logging` module.
+Para mais informações, consulte a documentação e tutorial do módulo :mod:`logging`.
 
 .. versionchanged:: 2.0
 
-    The library now provides a default logging configuration.
+    A biblioteca agora fornece uma configuração de logging padrão.

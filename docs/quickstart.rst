@@ -74,11 +74,10 @@ No Windows:
 
     $ py -3 example_bot.py
 
-No macOS, Linux:
+No macOS/Linux:
 
 .. code-block:: shell
 
     $ python3 example_bot.py
 
-Agora você pode brincar um pouco com seu bot básico.
-Tradução feita por `jptngames <https://github.com/jptngames>`_
+Agora você pode brincar um pouco com seu bot básico._
