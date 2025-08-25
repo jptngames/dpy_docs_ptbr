@@ -1,22 +1,22 @@
 .. _discord_ext_tasks:
 
-``discord.ext.tasks`` -- asyncio.Task helpers
+``discord.ext.tasks`` -- helpers para asyncio.Task
 ====================================================
 
 .. versionadded:: 1.1.0
 
-One of the most common operations when making a bot is having a loop run in the background at a specified interval. This pattern is very common but has a lot of things you need to look out for:
+Uma das operações mais comuns ao criar um bot é ter um loop rodando em segundo plano em um intervalo específico. Esse padrão é muito comum, mas existem várias coisas para se atentar:
 
-- How do I handle :exc:`asyncio.CancelledError`?
-- What do I do if the internet goes out?
-- What is the maximum number of seconds I can sleep anyway?
+- Como lidar com :exc:`asyncio.CancelledError`?
+- O que faço se a internet cair?
+- Qual é o número máximo de segundos que posso usar no sleep?
 
-The goal of this discord.py extension is to abstract all these worries away from you.
+O objetivo desta extensão do discord.py é abstrair todas essas preocupações de você.
 
-Recipes
+Formas de Fazer (Receitas? 🤨)
 ---------
 
-A simple background task in a :class:`~discord.ext.commands.Cog`:
+Uma tarefa simples em segundo plano dentro de um :class:`~discord.ext.commands.Cog`:
 
 .. code-block:: python3
 
@@ -35,7 +35,7 @@ A simple background task in a :class:`~discord.ext.commands.Cog`:
             print(self.index)
             self.index += 1
 
-Adding an exception to handle during reconnect:
+Adicionando uma exceção para tratar durante a reconexão:
 
 .. code-block:: python3
 
@@ -55,10 +55,10 @@ Adding an exception to handle during reconnect:
         @tasks.loop(minutes=5.0)
         async def batch_update(self):
             async with self.bot.pool.acquire() as con:
-                # batch update here...
+                # atualização em lote aqui...
                 pass
 
-Looping a certain amount of times before exiting:
+Executando um loop um número específico de vezes antes de sair:
 
 .. code-block:: python3
 
@@ -71,13 +71,13 @@ Looping a certain amount of times before exiting:
 
     @slow_count.after_loop
     async def after_slow_count():
-        print('done!')
+        print('feito!')
 
     class MyClient(discord.Client):
         async def setup_hook(self):
             slow_count.start()
 
-Waiting until the bot is ready before the loop starts:
+Aguardando até que o bot esteja pronto antes do loop começar:
 
 .. code-block:: python3
 
@@ -99,10 +99,10 @@ Waiting until the bot is ready before the loop starts:
 
         @printer.before_loop
         async def before_printer(self):
-            print('waiting...')
+            print('aguardando...')
             await self.bot.wait_until_ready()
 
-Doing something during cancellation:
+Fazendo algo durante o cancelamento:
 
 .. code-block:: python3
 
@@ -120,7 +120,7 @@ Doing something during cancellation:
             self.bulker.cancel()
 
         async def do_bulk(self):
-            # bulk insert data here
+            # inserção em lote aqui
             ...
 
         @tasks.loop(seconds=10.0)
@@ -131,11 +131,11 @@ Doing something during cancellation:
         @bulker.after_loop
         async def on_bulker_cancel(self):
             if self.bulker.is_being_cancelled() and len(self._batch) != 0:
-                # if we're cancelled and we have some data left...
-                # let's insert it to our database
+                # se fomos cancelados e ainda temos dados restantes...
+                # vamos inserir no banco de dados
                 await self.do_bulk()
 
-Doing something at a specific time each day:
+Fazendo algo em um horário específico a cada dia:
 
 .. code-block:: python3
 
@@ -144,7 +144,7 @@ Doing something at a specific time each day:
 
     utc = datetime.timezone.utc
 
-    # If no tzinfo is given then UTC is assumed.
+    # Se nenhum tzinfo for dado, assume-se UTC.
     time = datetime.time(hour=8, minute=30, tzinfo=utc)
 
     class MyCog(commands.Cog):
@@ -157,9 +157,9 @@ Doing something at a specific time each day:
 
         @tasks.loop(time=time)
         async def my_task(self):
-            print("My task is running!")
+            print("Minha tarefa está rodando!")
 
-Doing something at multiple specific times each day:
+Fazendo algo em múltiplos horários específicos por dia:
 
 .. code-block:: python3
 
@@ -168,7 +168,7 @@ Doing something at multiple specific times each day:
 
     utc = datetime.timezone.utc
 
-    # If no tzinfo is given then UTC is assumed.
+    # Se nenhum tzinfo for dado, assume-se UTC.
     times = [
         datetime.time(hour=8, tzinfo=utc),
         datetime.time(hour=12, minute=30, tzinfo=utc),
@@ -185,28 +185,28 @@ Doing something at multiple specific times each day:
 
         @tasks.loop(time=times)
         async def my_task(self):
-            print("My task is running!")
+            print("Minha tarefa está rodando!")
 
 .. _ext_tasks_api:
 
-API Reference
----------------
+Referência da API
+-----------------
 
 .. attributetable:: discord.ext.tasks.Loop
 
 .. autoclass:: discord.ext.tasks.Loop()
-    :members:
-    :special-members: __call__
-    :exclude-members: after_loop, before_loop, error
+:members:
+:special-members: __call__
+:exclude-members: after_loop, before_loop, error
 
-    .. automethod:: Loop.after_loop()
-        :decorator:
+.. automethod:: Loop.after_loop()
+:decorator:
 
-    .. automethod:: Loop.before_loop()
-        :decorator:
+.. automethod:: Loop.before_loop()
+:decorator:
 
-    .. automethod:: Loop.error()
-        :decorator:
+.. automethod:: Loop.error()
+:decorator:
 
 .. autofunction:: discord.ext.tasks.loop
-    :decorator:
+:decorator:
