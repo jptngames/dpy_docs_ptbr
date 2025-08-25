@@ -1,8 +1,8 @@
 .. discord.py documentation master file, created by
-sphinx-quickstart on Fri Aug 21 05:43:30 2015.
-You can adapt this file completely to your liking, but it should at least
-contain the root `toctree` directive.
-
+   sphinx-quickstart on Fri Aug 21 05:43:30 2015.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+   
 Bem-vindo ao discord.py
 ===========================
 
@@ -46,10 +46,10 @@ Extensões
 Essas extensões ajudam durante o desenvolvimento em tarefas comuns.
 
 .. toctree::
-:maxdepth: 1
+  :maxdepth: 1
 
-ext/commands/index.rst
-ext/tasks/index.rst
+  ext/commands/index.rst
+  ext/tasks/index.rst
 
 Manuais
 ---------
@@ -57,12 +57,12 @@ Manuais
 Essas páginas explicam em grande detalhe tudo o que a API pode fazer.
 
 .. toctree::
-:maxdepth: 1
+  :maxdepth: 1
 
-api
-interactions/api
-Referência da API discord.ext.commands <ext/commands/api.rst>
-Referência da API discord.ext.tasks <ext/tasks/index.rst>
+  api
+  interactions/api
+  discord.ext.commands Referência da API <ext/commands/api.rst>
+  discord.ext.tasks Referência da API <ext/tasks/index.rst>
 
 Meta
 ------
@@ -70,11 +70,11 @@ Meta
 Se você está procurando algo relacionado ao próprio projeto, está aqui.
 
 .. toctree::
-:maxdepth: 1
+  :maxdepth: 1
 
-whats_new
-version_guarantees
-migrating
+  whats_new
+  version_guarantees
+  migrating
 
 Tradução
 ---------
